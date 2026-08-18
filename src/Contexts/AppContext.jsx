@@ -1,16 +1,16 @@
 // src/AppRoutes.js
 import { Routes, Route } from 'react-router-dom';
-import HomePage from './pages/Home/HomePage';
-import AboutPage from './pages/About/AboutPage';
-import ProjectsPage from './pages/Project/ProjectsPage';
-import ProjectDetail from './components/Projects/ProjectDetail';
-import BlogPage from './pages/Blog/BlogPage';
-import BlogDetail from './components/Blog/BlogDetail';
-import ContactPage from './pages/Contact/ContactPage';
-import Error from './pages/Error/ErrorPage';
-import Header from './components/Header/Header';
-import Footer from './components/Footer/Footer';
-import MouseGlow from './components/MouseGlow/MouseGlow';
+import HomePage from '../pages/Home/HomePage';
+import AboutPage from '../pages/About/AboutPage';
+import ProjectsPage from '../pages/Project/ProjectsPage';
+import ProjectDetail from '../components/Projects/ProjectDetail';
+import BlogPage from '../pages/Blog/BlogPage';
+import BlogDetail from '../components/Blog/BlogDetail';
+import ContactPage from '../pages/Contact/ContactPage';
+import Error from '../pages/Error/ErrorPage';
+import Header from '../components/Header/Header';
+import Footer from '../components/Footer/Footer';
+import MouseGlow from './MouseContext';
 
 const AppRoutes = () => {
   return (

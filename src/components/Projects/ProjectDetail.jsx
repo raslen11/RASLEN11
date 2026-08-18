@@ -1,8 +1,8 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect, useCallback } from 'react';
-import { useTheme } from '../../styles/theme';
-import { useLanguage } from '../../styles/LanguageContext';
+import { useTheme } from '../../Contexts/ThemeContext';
+import { useLanguage } from '../../Contexts/LanguageContext';
 import { projects } from '../../utils/ProjectData';
 import { 
   FaGithub, 

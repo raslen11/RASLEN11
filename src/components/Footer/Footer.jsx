@@ -2,9 +2,9 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { FaGithub, FaLinkedin, FaInstagram, FaTiktok, FaFacebook, FaDiscord, FaEnvelope } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
-import { useLanguage } from '../../styles/LanguageContext';
-import { useTheme } from '../../styles/theme';
-import logo from '../../components/Header/Logo_R.png';
+import { useLanguage } from '../../Contexts/LanguageContext';
+import { useTheme } from '../../Contexts/ThemeContext';
+import logo from '../../assets/profile.jpg';
 import './Footer.css';
 
 const Footer = () => {

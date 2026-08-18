@@ -7,9 +7,9 @@ import {
   faArrowUp 
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useTheme } from '../../styles/theme';
-import { useLanguage } from '../../styles/LanguageContext';
-import './GlobalControls.css';
+import { useTheme } from '../../Contexts/ThemeContext';
+import { useLanguage } from '../../Contexts/LanguageContext';
+import './ToggleButtons.css';
 
 const GlobalControls = () => {
   const [isMobile, setIsMobile] = useState(false);

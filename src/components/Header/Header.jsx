@@ -4,8 +4,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
   FaHome, FaUser, FaProjectDiagram, FaBlog, FaEnvelope
 } from 'react-icons/fa';
-import { useTheme } from '../../styles/theme';
-import logo from './Logo_R.png';
+import { useTheme } from '../../Contexts/ThemeContext';
+import logo from '../../assets/profile.jpg';
 import './Header.css';
 
 const Header = () => {

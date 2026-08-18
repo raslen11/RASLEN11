@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useTheme } from '../../styles/theme';
+import { useTheme } from './ThemeContext';
 
 const MouseGlow = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });

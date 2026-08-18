@@ -241,19 +241,51 @@
 
 /* Status Badge - ALWAYS VISIBLE */
 .status-badge {
-  display: inline-flex !important; /* Force display */
+  display: inline-flex !important;
   align-items: center;
   gap: 0.5rem;
   padding: 0.4rem 1rem;
   border-radius: 100px;
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   margin-bottom: 1.5rem;
   font-size: 0.8rem;
   font-weight: 500;
   color: var(--text-secondary);
   transition: all 0.08s ease-out;
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.04);
+}
+
+.theme-dark .status-badge {
+  background: rgba(28, 28, 30, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.3);
+}
+
+.status-badge::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.06) 0%,
+    transparent 100%
+  );
+  pointer-events: none;
+  border-radius: 100px 100px 0 0;
+}
+
+.theme-dark .status-badge::before {
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.02) 0%,
+    transparent 100%
+  );
 }
 
 .status-dot {
@@ -359,10 +391,18 @@
   font-size: 0.75rem;
   font-weight: 500;
   color: var(--text-secondary);
-  background: var(--glass-bg);
-  border: 1px solid var(--border-color);
-  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   transition: all 0.3s ease;
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.04);
+}
+
+.theme-dark .tech-tag {
+  background: rgba(28, 28, 30, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.3);
 }
 
 .tech-tag:hover {
@@ -371,7 +411,7 @@
   transform: translateY(-2px);
 }
 
-/* ========== BUTTONS - FIXED WITH CSS VARIABLES ========== */
+/* ========== BUTTONS ========== */
 
 .home-buttons-container {
   display: flex;
@@ -539,22 +579,34 @@
   height: 44px;
   border-radius: 50%;
   color: var(--text-secondary);
-  background: var(--glass-bg);
-  border: 1px solid var(--border-color);
-  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   transition: all 0.3s ease;
   font-size: 1.125rem;
   text-decoration: none;
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.04);
+}
+
+.theme-dark .social-link {
+  background: rgba(28, 28, 30, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.3);
 }
 
 .social-link:hover {
   color: var(--text-color);
   border-color: var(--accent-color);
   transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.08);
 }
 
-/* ========== SCROLL INDICATOR - REDUCED PADDING, ONLY ARROW ========== */
+.theme-dark .social-link:hover {
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.4);
+}
+
+/* ========== SCROLL INDICATOR - CENTERED ========== */
 
 .scroll-indicator {
   position: relative;
@@ -562,6 +614,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 0.4rem;
   padding: 0.5rem 0 0.25rem 0;
   width: 100%;
@@ -588,6 +641,8 @@
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif;
   animation: textPulse 2.5s ease-in-out infinite;
   transition: color 0.3s ease;
+  text-align: center;
+  width: 100%;
 }
 
 .scroll-indicator:hover .scroll-text {
@@ -598,12 +653,15 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  width: 100%;
 }
 
 .scroll-arrow {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   animation: arrowBounce 2s ease-in-out infinite;
 }
 
@@ -671,8 +729,15 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1rem;
-  background: var(--glass-bg);
-  border-bottom: 1px solid var(--border-color);
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.theme-dark .terminal-header {
+  background: rgba(28, 28, 30, 0.15);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .terminal-dot {
@@ -756,15 +821,23 @@
   gap: 0.5rem;
   padding: 0.3rem 1rem;
   border-radius: 100px;
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   margin-bottom: 1rem;
   font-size: 0.75rem;
   font-weight: 500;
   color: var(--text-secondary);
   letter-spacing: 0.05em;
   text-transform: uppercase;
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.04);
+}
+
+.theme-dark .home-tech-badge {
+  background: rgba(28, 28, 30, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.3);
 }
 
 .home-tech-badge-icon {
@@ -803,14 +876,22 @@
   justify-content: center;
   gap: 0.5rem;
   padding: 1.25rem 1rem;
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 16px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: default;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.04);
+}
+
+.theme-dark .home-tech-item {
+  background: rgba(28, 28, 30, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.3);
 }
 
 .home-tech-item::before {
@@ -839,8 +920,12 @@
 
 .home-tech-item:hover {
   transform: translateY(-4px);
-  box-shadow: var(--glass-shadow);
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.08);
   border-color: var(--accent-color);
+}
+
+.theme-dark .home-tech-item:hover {
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.4);
 }
 
 .home-tech-icon {

@@ -1,8 +1,8 @@
 // src/pages/Contact/ContactPage.jsx
 import { motion } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { useTheme } from '../../styles/theme';
-import { useLanguage } from '../../styles/LanguageContext';
+import { useTheme } from '../../Contexts/ThemeContext';
+import { useLanguage } from '../../Contexts/LanguageContext';
 import emailjs from '@emailjs/browser';
 import { 
   FaGithub, 

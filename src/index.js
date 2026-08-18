@@ -2,7 +2,7 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
-import { ThemeProvider } from './styles/theme';
+import { ThemeProvider } from './Contexts/ThemeContext';
 
 const container = document.getElementById('root');
 const root = createRoot(container);

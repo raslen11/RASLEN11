@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useEffect, useState, useMemo, useRef } from 'react';
-import { useTheme } from '../../styles/theme';
-import { useLanguage } from '../../styles/LanguageContext';
+import { useTheme } from '../../Contexts/ThemeContext';
+import { useLanguage } from '../../Contexts/LanguageContext';
 import { 
   FaArrowRight, FaEnvelope, FaCode, FaGithub, FaLinkedin, 
   FaTwitter, FaReact, FaNodeJs, FaPython, FaDocker,

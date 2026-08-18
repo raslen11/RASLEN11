@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { useTheme } from '../../styles/theme';
-import { useLanguage } from '../../styles/LanguageContext';
+import { useTheme } from '../../Contexts/ThemeContext';
+import { useLanguage } from '../../Contexts/LanguageContext';
 import { projects } from '../../utils/ProjectData';
 import { useNavigate } from 'react-router-dom';
 import { FaProjectDiagram } from 'react-icons/fa';

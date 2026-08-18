@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
-import { useTheme } from '../../styles/theme';
-import { useLanguage } from '../../styles/LanguageContext';
+import { useTheme } from '../../Contexts/ThemeContext';
+import { useLanguage } from '../../Contexts/LanguageContext';
 import { blogPosts } from '../../utils/blogData';
 import { useNavigate } from 'react-router-dom';
 import { FaBlog } from 'react-icons/fa';

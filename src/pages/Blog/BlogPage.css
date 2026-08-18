@@ -188,9 +188,8 @@
   z-index: 2;
 }
 
-/* ========== BADGE ========== */
+/* ========== BADGE - TRANSPARENT GLASS ========== */
 
-/* Mobile top padding for header */
 @media (max-width: 768px) {
   .blog-badge {
     margin-top: 3.5rem;
@@ -203,9 +202,10 @@
   gap: 0.5rem;
   padding: 0.3rem 1rem;
   border-radius: 100px;
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   margin-bottom: 0.75rem;
   font-size: 0.75rem;
   font-weight: 500;
@@ -215,6 +215,37 @@
   margin-left: auto;
   margin-right: auto;
   width: fit-content;
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.04);
+}
+
+.theme-dark .blog-badge {
+  background: rgba(28, 28, 30, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.3);
+}
+
+.blog-badge::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.06) 0%,
+    transparent 100%
+  );
+  pointer-events: none;
+  border-radius: 100px 100px 0 0;
+}
+
+.theme-dark .blog-badge::before {
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.02) 0%,
+    transparent 100%
+  );
 }
 
 .blog-badge-icon {
@@ -255,7 +286,7 @@
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
-/* ========== BLOG CARD ========== */
+/* ========== BLOG CARD - TRANSPARENT GLASS ========== */
 
 .blog-card-wrapper {
   height: 100%;
@@ -270,11 +301,11 @@
   height: 100%;
   border-radius: 20px;
   overflow: hidden;
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow);
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.04);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   flex-direction: column;
@@ -282,15 +313,10 @@
   position: relative;
 }
 
-/* Theme-specific card styles */
 .theme-dark .blog-card {
-  background: rgba(28, 28, 30, 0.85);
-  border-color: rgba(255, 255, 255, 0.08);
-}
-
-.theme-light .blog-card {
-  background: rgba(255, 255, 255, 0.85);
-  border-color: rgba(255, 255, 255, 0.4);
+  background: rgba(28, 28, 30, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.3);
 }
 
 .blog-card::before {
@@ -319,8 +345,12 @@
 
 .blog-card:hover {
   transform: translateY(-6px);
-  box-shadow: var(--glass-shadow);
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.08);
   border-color: var(--accent-color);
+}
+
+.theme-dark .blog-card:hover {
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.4);
 }
 
 /* Card Image */

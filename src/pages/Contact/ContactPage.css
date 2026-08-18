@@ -201,12 +201,13 @@
   margin-bottom: 3rem;
 }
 
-/* Mobile top padding for header */
 @media (max-width: 768px) {
   .contact-header {
     margin-top: 3.5rem;
   }
 }
+
+/* ========== BADGE - TRANSPARENT GLASS ========== */
 
 .contact-badge {
   display: inline-flex;
@@ -214,15 +215,47 @@
   gap: 0.5rem;
   padding: 0.3rem 1rem;
   border-radius: 100px;
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   margin-bottom: 1rem;
   font-size: 0.75rem;
   font-weight: 500;
   color: var(--text-secondary);
   letter-spacing: 0.05em;
   text-transform: uppercase;
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.04);
+}
+
+.theme-dark .contact-badge {
+  background: rgba(28, 28, 30, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.3);
+}
+
+.contact-badge::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.06) 0%,
+    transparent 100%
+  );
+  pointer-events: none;
+  border-radius: 100px 100px 0 0;
+}
+
+.theme-dark .contact-badge::before {
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.02) 0%,
+    transparent 100%
+  );
 }
 
 .contact-badge-icon {
@@ -271,17 +304,25 @@
   font-size: 1.25rem;
 }
 
-/* ========== CONTACT METHODS - IMPROVED ========== */
+/* ========== CONTACT METHODS - TRANSPARENT GLASS ========== */
 
 .contact-methods-section {
   padding: 1.75rem;
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 20px;
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.04);
+}
+
+.theme-dark .contact-methods-section {
+  background: rgba(28, 28, 30, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.3);
 }
 
 .contact-methods-section::before {
@@ -310,7 +351,11 @@
 
 .contact-methods-section:hover {
   transform: translateY(-4px);
-  box-shadow: var(--glass-shadow);
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.08);
+}
+
+.theme-dark .contact-methods-section:hover {
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.4);
 }
 
 .contact-methods-grid {
@@ -360,9 +405,14 @@
 
 .contact-method-card:hover {
   border-color: var(--border-color);
-  background: var(--glass-bg);
+  background: rgba(255, 255, 255, 0.12);
   transform: translateX(4px);
-  box-shadow: var(--glass-shadow);
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.04);
+}
+
+.theme-dark .contact-method-card:hover {
+  background: rgba(28, 28, 30, 0.15);
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.3);
 }
 
 .contact-method-icon {
@@ -381,7 +431,11 @@
 
 .contact-method-card:hover .contact-method-icon {
   transform: scale(1.1) rotate(-5deg);
-  background: var(--glass-bg);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.theme-dark .contact-method-card:hover .contact-method-icon {
+  background: rgba(28, 28, 30, 0.15);
 }
 
 .contact-method-info {
@@ -404,17 +458,25 @@
   word-break: break-all;
 }
 
-/* ========== CONTACT FORM - IMPROVED ========== */
+/* ========== CONTACT FORM - TRANSPARENT GLASS ========== */
 
 .contact-form-section {
   padding: 1.75rem;
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 20px;
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.04);
+}
+
+.theme-dark .contact-form-section {
+  background: rgba(28, 28, 30, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.3);
 }
 
 .contact-form-section::before {
@@ -443,7 +505,11 @@
 
 .contact-form-section:hover {
   transform: translateY(-4px);
-  box-shadow: var(--glass-shadow);
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.08);
+}
+
+.theme-dark .contact-form-section:hover {
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.4);
 }
 
 .contact-form {
@@ -501,12 +567,13 @@
 .form-textarea:focus {
   outline: none;
   border-color: var(--accent-color);
-  background: var(--glass-bg);
+  background: rgba(255, 255, 255, 0.12);
   box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
 }
 
 .theme-dark .form-input:focus,
 .theme-dark .form-textarea:focus {
+  background: rgba(28, 28, 30, 0.15);
   box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.05);
 }
 

@@ -209,25 +209,61 @@
   }
 }
 
+/* ========== BADGE - TRANSPARENT GLASS ========== */
+
 .about-badge {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   padding: 0.3rem 1rem;
   border-radius: 100px;
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   margin-bottom: 1rem;
   font-size: 0.75rem;
   font-weight: 500;
   color: var(--text-secondary);
   letter-spacing: 0.05em;
   text-transform: uppercase;
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.04);
+}
+
+.theme-dark .about-badge {
+  background: rgba(28, 28, 30, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Badge shine overlay */
+.about-badge::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.06) 0%,
+    transparent 100%
+  );
+  pointer-events: none;
+  border-radius: 100px 100px 0 0;
+}
+
+.theme-dark .about-badge::before {
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.02) 0%,
+    transparent 100%
+  );
 }
 
 .about-badge-icon {
   font-size: 0.875rem;
+  color: var(--accent-color);
 }
 
 .about-title {
@@ -254,22 +290,34 @@
   line-height: 1.6;
 }
 
-/* ========== INTRO ========== */
+/* ========== INTRO - TRANSPARENT GLASS ========== */
 
 .about-intro {
   margin-bottom: 2.5rem;
   position: relative;
   padding: 2rem;
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 20px;
   transition: all 0.3s ease;
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.04);
+}
+
+.theme-dark .about-intro {
+  background: rgba(28, 28, 30, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.3);
 }
 
 .about-intro:hover {
   transform: translateY(-4px);
-  box-shadow: var(--glass-shadow);
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.08);
+}
+
+.theme-dark .about-intro:hover {
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.4);
 }
 
 .about-intro::before {
@@ -307,7 +355,7 @@
   margin-bottom: 0;
 }
 
-/* ========== STATS - NEW DESIGN ========== */
+/* ========== STATS - TRANSPARENT GLASS ========== */
 
 .about-stats {
   display: grid;
@@ -319,13 +367,21 @@
 .about-stat {
   text-align: center;
   padding: 1.5rem 1rem;
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 16px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.04);
+}
+
+.theme-dark .about-stat {
+  background: rgba(28, 28, 30, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.3);
 }
 
 .about-stat::before {
@@ -354,8 +410,12 @@
 
 .about-stat:hover {
   transform: translateY(-6px) scale(1.02);
-  box-shadow: var(--glass-shadow);
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.08);
   border-color: var(--accent-color);
+}
+
+.theme-dark .about-stat:hover {
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.4);
 }
 
 .about-stat-number {
@@ -379,7 +439,7 @@
   letter-spacing: 0.05em;
 }
 
-/* ========== EXPERTISE - IMPROVED CARDS ========== */
+/* ========== EXPERTISE - TRANSPARENT GLASS ========== */
 
 .about-expertise-section {
   margin-bottom: 2.5rem;
@@ -407,13 +467,21 @@
 
 .about-expertise-card {
   padding: 1.5rem;
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 20px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.04);
+}
+
+.theme-dark .about-expertise-card {
+  background: rgba(28, 28, 30, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.3);
 }
 
 .about-expertise-card::before {
@@ -442,8 +510,12 @@
 
 .about-expertise-card:hover {
   transform: translateY(-6px) scale(1.02);
-  box-shadow: var(--glass-shadow);
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.08);
   border-color: var(--accent-color);
+}
+
+.theme-dark .about-expertise-card:hover {
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.4);
 }
 
 .about-expertise-icon {
@@ -459,7 +531,11 @@
 
 .about-expertise-card:hover .about-expertise-icon {
   transform: scale(1.1) rotate(-5deg);
-  background: var(--glass-bg);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.theme-dark .about-expertise-card:hover .about-expertise-icon {
+  background: rgba(28, 28, 30, 0.15);
 }
 
 .about-expertise-title {
@@ -492,7 +568,7 @@
   transform: translateY(-2px);
 }
 
-/* ========== PRINCIPLES - IMPROVED ========== */
+/* ========== PRINCIPLES - TRANSPARENT GLASS ========== */
 
 .about-principles-section {
   margin-bottom: 2.5rem;
@@ -506,14 +582,22 @@
 
 .about-principle-card {
   padding: 1.5rem;
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 20px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   text-align: center;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.04);
+}
+
+.theme-dark .about-principle-card {
+  background: rgba(28, 28, 30, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.3);
 }
 
 .about-principle-card::before {
@@ -542,8 +626,12 @@
 
 .about-principle-card:hover {
   transform: translateY(-6px) scale(1.02);
-  box-shadow: var(--glass-shadow);
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.08);
   border-color: var(--accent-color);
+}
+
+.theme-dark .about-principle-card:hover {
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.4);
 }
 
 .about-principle-icon {
@@ -559,7 +647,11 @@
 
 .about-principle-card:hover .about-principle-icon {
   transform: scale(1.1) rotate(5deg);
-  background: var(--glass-bg);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.theme-dark .about-principle-card:hover .about-principle-icon {
+  background: rgba(28, 28, 30, 0.15);
 }
 
 .about-principle-title {
@@ -575,7 +667,7 @@
   line-height: 1.6;
 }
 
-/* ========== BEYOND THE CODE - IMPROVED ========== */
+/* ========== BEYOND THE CODE - TRANSPARENT GLASS ========== */
 
 .about-beyond-section {
   margin-bottom: 2.5rem;
@@ -589,14 +681,22 @@
 
 .about-beyond-card {
   padding: 1.5rem;
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 20px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   text-align: center;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.04);
+}
+
+.theme-dark .about-beyond-card {
+  background: rgba(28, 28, 30, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.3);
 }
 
 .about-beyond-card::before {
@@ -625,8 +725,12 @@
 
 .about-beyond-card:hover {
   transform: translateY(-6px) scale(1.02);
-  box-shadow: var(--glass-shadow);
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.08);
   border-color: var(--accent-color);
+}
+
+.theme-dark .about-beyond-card:hover {
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.4);
 }
 
 .about-beyond-icon {
@@ -642,7 +746,11 @@
 
 .about-beyond-card:hover .about-beyond-icon {
   transform: scale(1.1) rotate(-5deg);
-  background: var(--glass-bg);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.theme-dark .about-beyond-card:hover .about-beyond-icon {
+  background: rgba(28, 28, 30, 0.15);
 }
 
 .about-beyond-title {
