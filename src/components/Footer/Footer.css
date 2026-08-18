@@ -118,7 +118,6 @@
   color: var(--text-color);
   font-weight: 700;
   background: linear-gradient(135deg, var(--accent-color) 0%, var(--text-color) 100%);
-  -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 

@@ -195,7 +195,6 @@
 .projects-title-highlight {
   display: inline-block;
   background: linear-gradient(135deg, var(--accent-color) 0%, var(--text-color) 100%);
-  -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -344,7 +343,6 @@
   color: var(--text-color);
   line-height: 1.3;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -354,7 +352,6 @@
   color: var(--text-secondary);
   line-height: 1.6;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   flex-grow: 1;
