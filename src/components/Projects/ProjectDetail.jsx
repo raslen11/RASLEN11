@@ -146,7 +146,7 @@ const ProjectDetail = () => {
         <div className="project-detail-wrapper">
           <div className="pd-not-found">
             <h2>{language === 'fr' ? 'Projet non trouvé' : 'Project not found'}</h2>
-            <p>{language === 'fr' ? 'Le projet que vous recherchez n\'existe pas.' : 'The project you are looking for does not exist.'}</p>
+            <p>{language === 'fr' ? "Le projet que vous recherchez n'existe pas." : 'The project you are looking for does not exist.'}</p>
             <button className="pd-back-button" onClick={() => navigate('/projects')}>
               <FaArrowLeft /> {language === 'fr' ? 'Retour aux projets' : 'Back to Projects'}
             </button>
@@ -307,7 +307,7 @@ const ProjectDetail = () => {
       <div className="pd-code-decoration pd-code-top-right">
         <span className="pd-code-line">{'useEffect(() => {'}</span>
         <span className="pd-code-line">{'  const fetchProject = async () => {'}</span>
-        <span className="pd-code-line">{'    const res = await fetch(`/api/projects/${id}`)'}</span>
+        <span className="pd-code-line">{'    const res = await fetch("/api/projects/" + id)'}</span>
         <span className="pd-code-line">{'    const data = await res.json()'}</span>
         <span className="pd-code-line">{'    setProject(data)'}</span>
         <span className="pd-code-line">{'  }'}</span>

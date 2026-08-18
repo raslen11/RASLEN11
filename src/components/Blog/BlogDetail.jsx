@@ -21,7 +21,7 @@ const BlogDetail = () => {
         <div className="bd-wrapper">
           <div className="bd-not-found">
             <h2>{language === 'fr' ? 'Article non trouvé' : 'Post not found'}</h2>
-            <p>{language === 'fr' ? 'L\'article que vous recherchez n\'existe pas.' : 'The post you are looking for does not exist.'}</p>
+            <p>{language === 'fr' ? "L'article que vous recherchez n'existe pas." : 'The post you are looking for does not exist.'}</p>
             <button className="bd-back-button" onClick={() => navigate('/blog')}>
               <FaArrowLeft /> {language === 'fr' ? 'Retour au blog' : 'Back to Blog'}
             </button>
@@ -100,7 +100,7 @@ const BlogDetail = () => {
       <div className="bd-code-decoration bd-code-top-right">
         <span className="bd-code-line">{'useEffect(() => {'}</span>
         <span className="bd-code-line">{'  const fetchPost = async () => {'}</span>
-        <span className="bd-code-line">{'    const res = await fetch(`/api/posts/${id}`)'}</span>
+        <span className="bd-code-line">{'    const res = await fetch("/api/posts/" + id)'}</span>
         <span className="bd-code-line">{'    const data = await res.json()'}</span>
         <span className="bd-code-line">{'    setPost(data)'}</span>
         <span className="bd-code-line">{'  }'}</span>
