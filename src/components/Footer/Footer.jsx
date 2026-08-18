@@ -3,12 +3,14 @@ import { Link } from 'react-router-dom';
 import { FaGithub, FaLinkedin, FaInstagram, FaTiktok, FaFacebook, FaDiscord, FaEnvelope } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import { useLanguage } from '../../styles/LanguageContext';
+import { useTheme } from '../../styles/theme';
 import logo from '../../components/Header/Logo_R.png';
 import './Footer.css';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const { language } = useLanguage();
+  const { theme } = useTheme();
 
   const navLinks = [
     { name: language === 'en' ? 'Home' : 'Accueil', path: '/' },
@@ -73,7 +75,7 @@ const Footer = () => {
   const socialLinksRow1 = socialLinks.slice(0, 4);
   const socialLinksRow2 = socialLinks.slice(4);
 
-  // Animation variants matching header style
+  // Animation variants
   const containerVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -106,7 +108,7 @@ const Footer = () => {
       whileInView="visible"
       viewport={{ once: true, margin: "-50px" }}
       variants={containerVariants}
-      className="footer"
+      className={`footer theme-${theme}`}
     >
       {/* Grid Background */}
       <div className="footer-grid-bg" />
@@ -124,7 +126,7 @@ const Footer = () => {
 
       <div className="footer-container">
         <div className="footer-grid">
-          {/* Brand Section */}
+          {/* Brand Section - Centered */}
           <motion.div 
             className="footer-brand"
             variants={itemVariants}
@@ -134,14 +136,16 @@ const Footer = () => {
               whileHover={{ scale: 1.02 }}
               transition={{ type: "spring", stiffness: 400, damping: 17 }}
             >
-              <h3 className="footer-title">
+              <div className="footer-brand-header">
                 <img 
                   src={logo} 
                   alt="R Logo" 
                   className="footer-logo-icon"
                 />
-                <span className="logo-text">RASLEN11</span>
-              </h3>
+                <h3 className="footer-title">
+                  <span className="logo-text">RASLEN11</span>
+                </h3>
+              </div>
               <p className="footer-description">
                 {language === 'en' 
                   ? 'Full Stack Developer specializing in modern web technologies and creating exceptional digital experiences.'
@@ -150,7 +154,7 @@ const Footer = () => {
               </p>
             </motion.div>
             
-            {/* Social Links - Two Rows */}
+            {/* Social Links - Two Rows Centered */}
             <div className="footer-social-wrapper">
               <motion.div 
                 className="footer-social footer-social-row-1"
@@ -220,7 +224,7 @@ const Footer = () => {
             </div>
           </motion.div>
 
-          {/* Navigation Links */}
+          {/* Navigation Links - Centered */}
           <motion.div 
             className="footer-links"
             variants={itemVariants}
@@ -254,7 +258,7 @@ const Footer = () => {
           </motion.div>
         </div>
 
-        {/* Copyright Section */}
+        {/* Copyright Section - Centered */}
         <motion.div 
           className="footer-copyright"
           initial={{ opacity: 0 }}

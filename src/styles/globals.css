@@ -129,6 +129,15 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* ========== THEME TRANSITIONS ========== */
+.theme-light,
+.theme-dark {
+  transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+              color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 /* ========== GLASS EFFECT UTILITIES ========== */
 .glass {
   background: var(--glass-bg);
@@ -137,6 +146,16 @@ body {
   border: 1px solid var(--glass-border);
   box-shadow: var(--glass-shadow);
   border-radius: 20px;
+}
+
+.theme-light .glass {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(20px) saturate(180%);
+}
+
+.theme-dark .glass {
+  background: rgba(28, 28, 30, 0.85);
+  backdrop-filter: blur(20px) saturate(180%);
 }
 
 /* ========== SCROLLBAR ========== */
@@ -268,6 +287,14 @@ body {
   box-shadow: var(--glass-shadow);
 }
 
+.theme-light .card:hover {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+}
+
+.theme-dark .card:hover {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+}
+
 /* ========== FORM ELEMENTS ========== */
 .input {
   width: 100%;
@@ -326,6 +353,7 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.2;
   font-weight: 600;
   letter-spacing: -0.02em;
+  color: var(--text-color);
 }
 
 h1 {
@@ -344,10 +372,28 @@ h4 {
   font-size: clamp(1.1rem, 2vw, 1.5rem);
 }
 
+h5 {
+  font-size: clamp(0.9375rem, 1.2vw, 1.25rem);
+}
+
+h6 {
+  font-size: clamp(0.8125rem, 1vw, 1rem);
+}
+
 p {
   line-height: 1.6;
   margin-bottom: 1rem;
   color: var(--text-secondary);
+}
+
+a {
+  color: var(--accent-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--text-color);
 }
 
 /* ========== RESPONSIVE ========== */

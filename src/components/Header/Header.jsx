@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
   FaHome, FaUser, FaProjectDiagram, FaBlog, FaEnvelope
 } from 'react-icons/fa';
+import { useTheme } from '../../styles/theme';
 import logo from './Logo_R.png';
 import './Header.css';
 
@@ -11,6 +12,7 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const location = useLocation();
+  const { theme } = useTheme();
 
   // Check screen size
   useEffect(() => {
@@ -58,7 +60,7 @@ const Header = () => {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
-        className={`header ${isMobile ? 'header-mobile-hidden' : ''}`}
+        className={`header theme-${theme} ${isMobile ? 'header-mobile-hidden' : ''}`}
       >
         <div className="header-container">
           <div className="header-content">
@@ -143,7 +145,7 @@ const Header = () => {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-          className="mobile-top-nav"
+          className={`mobile-top-nav theme-${theme}`}
         >
           <div className="mobile-top-nav-container">
             {/* Logo and Name - Centered */}
@@ -168,7 +170,7 @@ const Header = () => {
           initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
-          className="bottom-nav"
+          className={`bottom-nav theme-${theme}`}
           aria-label="Bottom navigation"
         >
           <div className="bottom-nav-container">
@@ -189,7 +191,6 @@ const Header = () => {
                     transition={{ type: "spring", stiffness: 400, damping: 17 }}
                   >
                     <Icon className="bottom-nav-icon" />
-
                   </motion.div>
                   <span className="bottom-nav-label">{link.name}</span>
                 </Link>

@@ -205,7 +205,7 @@
 /* Mobile top padding for header */
 @media (max-width: 768px) {
   .about-header {
-    padding-top: 1.5rem;
+    margin-top: 2rem;
   }
 }
 

@@ -1,5 +1,3 @@
-/* src/pages/Home/HomePage.css */
-
 /* ========== HOME SECTION ========== */
 
 .home-section {
@@ -241,9 +239,9 @@
   transition: all 0.08s ease-out;
 }
 
-/* Status Badge */
+/* Status Badge - ALWAYS VISIBLE */
 .status-badge {
-  display: inline-flex;
+  display: inline-flex !important; /* Force display */
   align-items: center;
   gap: 0.5rem;
   padding: 0.4rem 1rem;
@@ -978,7 +976,7 @@
   }
 }
 
-/* Mobile */
+/* Mobile - Status Badge NOW VISIBLE on mobile */
 @media (max-width: 767px) {
   .code-decoration {
     display: none;
@@ -1002,6 +1000,19 @@
     min-height: 2.5rem;
   }
 
+  /* Status Badge - Ensure it's visible on mobile */
+  .status-badge {
+    display: inline-flex !important;
+    font-size: 0.75rem;
+    padding: 0.3rem 0.75rem;
+    margin-top: 3.5rem;
+  }
+
+  .status-dot {
+    width: 6px;
+    height: 6px;
+  }
+
   .home-buttons-container {
     flex-direction: column;
     align-items: center;
@@ -1015,11 +1026,6 @@
     justify-content: center;
     min-width: unset;
     padding: 0.75rem 1.5rem;
-  }
-
-  .status-badge {
-    font-size: 0.7rem;
-    padding: 0.3rem 0.75rem;
   }
 
   .home-mouse-glow {
@@ -1072,6 +1078,19 @@
     padding: 1.5rem 0.75rem;
   }
 
+  /* Status Badge - Even smaller on very small screens */
+  .status-badge {
+    font-size: 0.6rem;
+    padding: 0.25rem 0.6rem;
+    gap: 0.3rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .status-dot {
+    width: 5px;
+    height: 5px;
+  }
+
   .terminal-body {
     padding: 0.75rem 1rem;
     font-size: 0.65rem;
@@ -1110,6 +1129,17 @@
 
 /* Extra Small Mobile */
 @media (max-width: 360px) {
+  .status-badge {
+    font-size: 0.55rem;
+    padding: 0.2rem 0.5rem;
+    gap: 0.25rem;
+  }
+
+  .status-dot {
+    width: 4px;
+    height: 4px;
+  }
+
   .home-tech-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 0.5rem;

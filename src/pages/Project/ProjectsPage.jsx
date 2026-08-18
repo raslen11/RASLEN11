@@ -4,6 +4,7 @@ import { useTheme } from '../../styles/theme';
 import { useLanguage } from '../../styles/LanguageContext';
 import { projects } from '../../utils/ProjectData';
 import { useNavigate } from 'react-router-dom';
+import { FaProjectDiagram } from 'react-icons/fa';
 import './ProjectsPage.css';
 
 // Import project images
@@ -41,6 +42,10 @@ const ProjectsPage = ({ isHomepage = false }) => {
   const displayedProjects = isHomepage ? projects.slice(0, 3) : projects;
 
   const translations = {
+    badge: {
+      en: 'Projects',
+      fr: 'Projets'
+    },
     title: {
       en: "Featured ",
       fr: "Projets "
@@ -145,18 +150,33 @@ const ProjectsPage = ({ isHomepage = false }) => {
       </div>
 
       <div className="projects-container">
+        {/* Badge and Title - Only show on full page, not homepage */}
         {!isHomepage && (
-          <motion.h2
-            className="projects-title"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, type: "spring", stiffness: 100 }}
-          >
-            {translations.title[language]}
-            <span className="projects-title-highlight">
-              {translations.highlight[language]}
-            </span>
-          </motion.h2>
+          <>
+            <motion.div 
+              className="projects-badge"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              <span className="projects-badge-icon">
+                <FaProjectDiagram />
+              </span>
+              {translations.badge[language]}
+            </motion.div>
+
+            <motion.h2
+              className="projects-title"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, type: "spring", stiffness: 100, delay: 0.2 }}
+            >
+              {translations.title[language]}
+              <span className="projects-title-highlight">
+                {translations.highlight[language]}
+              </span>
+            </motion.h2>
+          </>
         )}
 
         <div className={`projects-grid ${isHomepage ? 'projects-grid-home' : 'projects-grid-full'}`}>

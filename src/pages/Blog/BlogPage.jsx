@@ -3,6 +3,7 @@ import { useTheme } from '../../styles/theme';
 import { useLanguage } from '../../styles/LanguageContext';
 import { blogPosts } from '../../utils/blogData';
 import { useNavigate } from 'react-router-dom';
+import { FaBlog } from 'react-icons/fa';
 import './BlogPage.css';
 
 const BlogPage = ({ isHomepage = false }) => {
@@ -12,6 +13,10 @@ const BlogPage = ({ isHomepage = false }) => {
   const displayedPosts = isHomepage ? blogPosts.slice(0, 3) : blogPosts;
 
   const translations = {
+    badge: {
+      en: 'Blog',
+      fr: 'Blog'
+    },
     title: {
       en: "Latest ",
       fr: "Derniers "
@@ -108,18 +113,33 @@ const BlogPage = ({ isHomepage = false }) => {
       </div>
 
       <div className="blog-container">
+        {/* Badge and Title - Only show on full page, not homepage */}
         {!isHomepage && (
-          <motion.h2
-            className="blog-title"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, type: "spring", stiffness: 100 }}
-          >
-            {translations.title[language]}
-            <span className="blog-title-highlight">
-              {translations.highlight[language]}
-            </span>
-          </motion.h2>
+          <>
+            <motion.div 
+              className="blog-badge"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              <span className="blog-badge-icon">
+                <FaBlog />
+              </span>
+              {translations.badge[language]}
+            </motion.div>
+
+            <motion.h2
+              className="blog-title"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, type: "spring", stiffness: 100, delay: 0.2 }}
+            >
+              {translations.title[language]}
+              <span className="blog-title-highlight">
+                {translations.highlight[language]}
+              </span>
+            </motion.h2>
+          </>
         )}
 
         <div className={`blog-grid ${isHomepage ? 'blog-grid-home' : 'blog-grid-full'}`}>
