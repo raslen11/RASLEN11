@@ -95,40 +95,115 @@
   opacity: 0.9;
 }
 
-/* ========== CODE DECORATIONS ========== */
+/* ========== CODE DECORATIONS - IMPROVED VISIBILITY ========== */
 
 .code-decoration {
   position: absolute;
   z-index: 1;
   font-family: 'Fira Code', 'Courier New', monospace;
-  font-size: clamp(0.6rem, 1vw, 0.875rem);
+  font-size: clamp(0.6rem, 0.85vw, 0.8rem);
   color: var(--text-tertiary);
-  opacity: 0.3;
+  opacity: 0.35;
   pointer-events: none;
-  line-height: 2;
+  line-height: 1.8;
   transition: all 0.08s ease-out;
+  max-width: 250px;
 }
 
-.code-left {
-  left: 1.5rem;
-  top: 3rem;
+/* Top Left - Import Statements */
+.code-top-left {
+  left: 2rem;
+  top: 2rem;
   text-align: left;
 }
 
+/* Top Right - useEffect Hook */
+.code-top-right {
+  right: 2rem;
+  top: 2rem;
+  text-align: right;
+}
+
+/* Left Side - Main HTML Structure */
+.code-left {
+  left: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: left;
+}
+
+/* Right Side - Closing Tags */
 .code-right {
-  right: 1.5rem;
-  bottom: 3rem;
+  right: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: right;
+}
+
+/* Bottom Left - CSS Styles */
+.code-bottom-left {
+  left: 2rem;
+  bottom: 2rem;
+  text-align: left;
+}
+
+/* Bottom Right - Export Statement */
+.code-bottom-right {
+  right: 2rem;
+  bottom: 2rem;
   text-align: right;
 }
 
 .code-line {
   display: block;
-  opacity: 0.5;
+  opacity: 0.6;
+  white-space: nowrap;
+  color: var(--text-tertiary);
 }
 
-.code-line:nth-child(2) { opacity: 0.4; }
-.code-line:nth-child(3) { opacity: 0.3; }
-.code-line:nth-child(4) { opacity: 0.2; }
+/* Brighter opacity gradient for better visibility */
+.code-line:nth-child(1) { opacity: 0.8; }
+.code-line:nth-child(2) { opacity: 0.7; }
+.code-line:nth-child(3) { opacity: 0.6; }
+.code-line:nth-child(4) { opacity: 0.55; }
+.code-line:nth-child(5) { opacity: 0.5; }
+.code-line:nth-child(6) { opacity: 0.45; }
+.code-line:nth-child(7) { opacity: 0.4; }
+.code-line:nth-child(8) { opacity: 0.35; }
+.code-line:nth-child(9) { opacity: 0.3; }
+.code-line:nth-child(10) { opacity: 0.25; }
+
+/* Dark theme - brighter code */
+.theme-dark .code-line {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.theme-dark .code-line:nth-child(1) { opacity: 0.9; }
+.theme-dark .code-line:nth-child(2) { opacity: 0.8; }
+.theme-dark .code-line:nth-child(3) { opacity: 0.7; }
+.theme-dark .code-line:nth-child(4) { opacity: 0.6; }
+.theme-dark .code-line:nth-child(5) { opacity: 0.5; }
+.theme-dark .code-line:nth-child(6) { opacity: 0.45; }
+.theme-dark .code-line:nth-child(7) { opacity: 0.4; }
+.theme-dark .code-line:nth-child(8) { opacity: 0.35; }
+.theme-dark .code-line:nth-child(9) { opacity: 0.3; }
+.theme-dark .code-line:nth-child(10) { opacity: 0.25; }
+
+/* Light theme - darker code for contrast */
+.theme-light .code-line {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.theme-light .code-line:nth-child(1) { opacity: 0.7; }
+.theme-light .code-line:nth-child(2) { opacity: 0.6; }
+.theme-light .code-line:nth-child(3) { opacity: 0.5; }
+.theme-light .code-line:nth-child(4) { opacity: 0.45; }
+.theme-light .code-line:nth-child(5) { opacity: 0.4; }
+.theme-light .code-line:nth-child(6) { opacity: 0.35; }
+.theme-light .code-line:nth-child(7) { opacity: 0.3; }
+.theme-light .code-line:nth-child(8) { opacity: 0.25; }
+.theme-light .code-line:nth-child(9) { opacity: 0.2; }
+.theme-light .code-line:nth-child(10) { opacity: 0.15; }
 
 /* ========== CONTAINER ========== */
 
@@ -306,7 +381,7 @@
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   transition: all 0.08s ease-out;
 }
 
@@ -454,6 +529,7 @@
   display: flex;
   justify-content: center;
   gap: 1rem;
+  margin-bottom: 0.5rem;
   transition: all 0.08s ease-out;
 }
 
@@ -478,6 +554,91 @@
   border-color: var(--accent-color);
   transform: translateY(-2px);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* ========== SCROLL INDICATOR - REDUCED PADDING, ONLY ARROW ========== */
+
+.scroll-indicator {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0 0.25rem 0;
+  width: 100%;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: scrollBounce 2.5s ease-in-out infinite;
+  user-select: none;
+}
+
+.scroll-indicator:hover {
+  transform: scale(1.05);
+}
+
+.scroll-indicator:active {
+  transform: scale(0.95);
+}
+
+.scroll-text {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-tertiary);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif;
+  animation: textPulse 2.5s ease-in-out infinite;
+  transition: color 0.3s ease;
+}
+
+.scroll-indicator:hover .scroll-text {
+  color: var(--text-color);
+}
+
+.scroll-arrow-line {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.scroll-arrow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: arrowBounce 2s ease-in-out infinite;
+}
+
+.scroll-arrow-line-down {
+  width: 2px;
+  height: 16px;
+  background: var(--accent-color);
+  border-radius: 2px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.scroll-indicator:hover .scroll-arrow-line-down {
+  background: var(--text-color);
+  height: 20px;
+}
+
+.scroll-arrow-line-down::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid var(--accent-color);
+  border-bottom: 2px solid var(--accent-color);
+  transform: translateX(-50%) rotate(45deg);
+  transition: all 0.3s ease;
+}
+
+.scroll-indicator:hover .scroll-arrow-line-down::after {
+  border-color: var(--text-color);
 }
 
 /* ========== TERMINAL SECTION ========== */
@@ -578,52 +739,158 @@
   50% { opacity: 0; }
 }
 
-/* ========== SCROLL INDICATOR ========== */
+/* ========== TECH STACK SECTION ========== */
 
-.scroll-indicator {
-  position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2;
+.home-tech-section {
+  width: 100%;
+  padding: 2rem 0;
+  margin-top: 0.5rem;
+}
+
+.home-tech-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.home-tech-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem 1rem;
+  border-radius: 100px;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  margin-bottom: 1rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.home-tech-badge-icon {
+  font-size: 0.875rem;
+}
+
+.home-tech-title {
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 700;
+  color: var(--text-color);
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
+}
+
+.home-tech-subtitle {
+  font-size: clamp(0.875rem, 1.2vw, 1.1rem);
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Tech Grid */
+.home-tech-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.home-tech-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.75rem;
-  transition: all 0.08s ease-out;
-}
-
-.scroll-text {
-  font-size: 0.7rem;
-  font-weight: 600;
-  color: var(--text-tertiary);
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif;
-}
-
-.scroll-line {
-  width: 1.5px;
-  height: 30px;
-  background: var(--border-color);
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1.25rem 1rem;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: default;
   position: relative;
   overflow: hidden;
-  border-radius: 2px;
 }
 
-.scroll-line-progress {
-  width: 100%;
-  height: 100%;
-  background: var(--accent-color);
+.home-tech-item::before {
+  content: '';
   position: absolute;
-  top: -100%;
-  animation: scrollMove 2s ease-in-out infinite;
-  border-radius: 2px;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.06) 0%,
+    transparent 100%
+  );
+  pointer-events: none;
+  border-radius: 16px 16px 0 0;
 }
 
-@keyframes scrollMove {
-  0% { transform: translateY(-100%); }
-  100% { transform: translateY(100%); }
+.theme-dark .home-tech-item::before {
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.02) 0%,
+    transparent 100%
+  );
+}
+
+.home-tech-item:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--glass-shadow);
+  border-color: var(--accent-color);
+}
+
+.home-tech-icon {
+  font-size: 2rem;
+  color: var(--accent-color);
+  transition: transform 0.3s ease;
+}
+
+.home-tech-item:hover .home-tech-icon {
+  transform: scale(1.1) rotate(-5deg);
+}
+
+.home-tech-name {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+/* ========== ANIMATIONS ========== */
+
+@keyframes scrollBounce {
+  0%, 100% { 
+    transform: translateY(0); 
+  }
+  50% { 
+    transform: translateY(4px); 
+  }
+}
+
+@keyframes textPulse {
+  0%, 100% { 
+    opacity: 1; 
+  }
+  50% { 
+    opacity: 0.5; 
+  }
+}
+
+@keyframes arrowBounce {
+  0%, 100% { 
+    transform: translateY(0); 
+    opacity: 1; 
+  }
+  50% { 
+    transform: translateY(3px); 
+    opacity: 0.7; 
+  }
 }
 
 /* ========== RESPONSIVE ========== */
@@ -667,19 +934,47 @@
   }
 
   .code-decoration {
+    font-size: clamp(0.6rem, 0.85vw, 0.8rem);
     opacity: 0.4;
+  }
+
+  .home-tech-grid {
+    grid-template-columns: repeat(5, 1fr);
+    max-width: 800px;
+  }
+
+  .scroll-indicator {
+    padding: 0.5rem 0 0.25rem 0;
   }
 }
 
 /* Tablet */
 @media (max-width: 1023px) and (min-width: 768px) {
   .code-decoration {
-    opacity: 0.2;
+    font-size: clamp(0.45rem, 0.6vw, 0.55rem);
+    opacity: 0.25;
   }
   
   .home-mouse-glow {
     width: 300px;
     height: 300px;
+  }
+
+  .home-tech-grid {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 600px;
+  }
+
+  .scroll-indicator {
+    padding: 0.4rem 0 0.2rem 0;
+  }
+
+  /* Hide some code decorations on tablet */
+  .code-top-left,
+  .code-top-right,
+  .code-bottom-left,
+  .code-bottom-right {
+    display: none;
   }
 }
 
@@ -722,10 +1017,6 @@
     padding: 0.75rem 1.5rem;
   }
 
-  .scroll-indicator {
-    display: none;
-  }
-
   .status-badge {
     font-size: 0.7rem;
     padding: 0.3rem 0.75rem;
@@ -733,6 +1024,45 @@
 
   .home-mouse-glow {
     display: none !important;
+  }
+
+  .home-tech-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    max-width: 100%;
+  }
+
+  .home-tech-item {
+    padding: 1rem 0.75rem;
+  }
+
+  .home-tech-icon {
+    font-size: 1.5rem;
+  }
+
+  .home-tech-name {
+    font-size: 0.6rem;
+  }
+
+  .scroll-indicator {
+    padding: 0.35rem 0 0.15rem 0;
+    gap: 0.3rem;
+  }
+
+  .scroll-text {
+    font-size: 0.6rem;
+  }
+
+  .scroll-arrow-line-down {
+    height: 12px;
+    width: 1.5px;
+  }
+
+  .scroll-arrow-line-down::after {
+    width: 6px;
+    height: 6px;
+    bottom: -4px;
+    border-width: 1.5px;
   }
 }
 
@@ -750,6 +1080,51 @@
   .terminal-dot {
     width: 10px;
     height: 10px;
+  }
+
+  .home-tech-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .home-tech-title {
+    font-size: 1.25rem;
+  }
+
+  .home-tech-subtitle {
+    font-size: 0.8rem;
+  }
+
+  .scroll-indicator {
+    padding: 0.25rem 0 0.1rem 0;
+    gap: 0.2rem;
+  }
+
+  .scroll-text {
+    font-size: 0.55rem;
+  }
+
+  .scroll-arrow-line-down {
+    height: 10px;
+  }
+}
+
+/* Extra Small Mobile */
+@media (max-width: 360px) {
+  .home-tech-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+
+  .home-tech-item {
+    padding: 0.75rem 0.5rem;
+  }
+
+  .home-tech-icon {
+    font-size: 1.25rem;
+  }
+
+  .home-tech-name {
+    font-size: 0.55rem;
   }
 }
 
@@ -771,6 +1146,14 @@
   .home-mouse-glow {
     display: none !important;
   }
+
+  .home-tech-item:hover {
+    transform: none !important;
+  }
+
+  .scroll-indicator:hover {
+    transform: none !important;
+  }
 }
 
 /* Reduced Motion */
@@ -791,13 +1174,21 @@
   .cursor-blink {
     animation: none !important;
   }
-  
-  .scroll-line-progress {
-    animation: none !important;
-  }
 
   .home-mouse-glow {
     display: none !important;
+  }
+
+  .scroll-indicator {
+    animation: none !important;
+  }
+
+  .scroll-text {
+    animation: none !important;
+  }
+
+  .scroll-arrow {
+    animation: none !important;
   }
 }
 
@@ -818,6 +1209,6 @@
   }
 
   .home-buttons-container {
-    display: none;
+    display: none !important;
   }
 }

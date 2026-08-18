@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { useTheme } from '../../styles/theme'; // Fixed path
-import { useLanguage } from '../../styles/LanguageContext'; // Fixed path
+import { useTheme } from '../../styles/theme';
+import { useLanguage } from '../../styles/LanguageContext';
 import { projects } from '../../utils/ProjectData';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './ProjectsPage.css';
 
-// Import project images - ensure these files exist in your assets folder
+// Import project images
 import foodDonationImg from '../../assets/food-donation.png';
 import cofatDashboardImg from '../../assets/cofat-dashboard.png';
 import salmaPortfolioImg from '../../assets/React/Salma Portfolio/salma-portfolio-1.png';
@@ -18,7 +18,6 @@ import myStoreImg from '../../assets/my-store.png';
 import meteoAppImg from '../../assets/meteoApp.png';
 import cofatLaravel from '../../assets/cofat-laravel.png';
 
-// Create image mapping object
 const projectImages = {
   1: foodDonationImg,
   2: cofatDashboardImg,
@@ -26,7 +25,7 @@ const projectImages = {
   4: raslenPortfolioImg,
   5: paymentSystemImg,
   6: dictatorsAppFlutterImg,
-  7:dictatorsAppImg,
+  7: dictatorsAppImg,
   8: myStoreImg,
   9: meteoAppImg,
   10: cofatLaravel,
@@ -36,18 +35,12 @@ const projectImages = {
 const ProjectsPage = ({ isHomepage = false }) => {
   const { theme } = useTheme();
   const { language } = useLanguage();
-  const { id } = useParams();
   const navigate = useNavigate();
-  const [selectedProject, setSelectedProject] = useState(null);
   const [imageLoading, setImageLoading] = useState({});
-  
+
   const displayedProjects = isHomepage ? projects.slice(0, 3) : projects;
 
   const translations = {
-    backButton: {
-      en: "← Back to Projects",
-      fr: "← Retour aux projets"
-    },
     title: {
       en: "Featured ",
       fr: "Projets "
@@ -59,25 +52,12 @@ const ProjectsPage = ({ isHomepage = false }) => {
     viewAll: {
       en: "View All Projects",
       fr: "Voir tous les projets"
-    },
-    defaultContent: {
-      en: "Project details are being updated. Please check back soon for more information about this project.",
-      fr: "Les détails du projet sont en cours de mise à jour. Revenez bientôt pour plus d'informations sur ce projet."
-    },
-    technologies: {
-      en: "Technologies:",
-      fr: "Technologies :"
     }
   };
 
-  useEffect(() => {
-    if (id) {
-      const project = projects.find(p => p.id === parseInt(id, 10));
-      setSelectedProject(project || null);
-    } else {
-      setSelectedProject(null);
-    }
-  }, [id]);
+  const getProjectImage = (projectId) => {
+    return projectImages[projectId] || '/images/project-placeholder.jpg';
+  };
 
   const handleImageLoad = (projectId) => {
     setImageLoading(prev => ({ ...prev, [projectId]: false }));
@@ -87,173 +67,92 @@ const ProjectsPage = ({ isHomepage = false }) => {
     setImageLoading(prev => ({ ...prev, [projectId]: true }));
   };
 
-  const handleBackToList = () => {
-    setSelectedProject(null);
-    navigate('/projects');
-  };
-
-  const getProjectImage = (projectId) => {
-    return projectImages[projectId] || '/images/project-placeholder.jpg';
-  };
-
-  // Extract technologies for display
-  const extractTechnologies = (project) => {
-    const techSet = new Set();
-    
-    project.content?.forEach(contentBlock => {
-      if (contentBlock.heading?.[language]?.toLowerCase().includes('technologie') || 
-          contentBlock.heading?.[language]?.toLowerCase().includes('technology')) {
-        
-        contentBlock.paragraphs?.[language]?.forEach(para => {
-          // Extract main technologies (first few items)
-          const lines = para.split('\n');
-          lines.forEach(line => {
-            // Look for technology patterns
-            if (line.includes(':') || line.includes('•')) {
-              const tech = line.split(':')[0]?.replace(/^[-•\d.]\s*/, '').trim();
-              if (tech && tech.length > 0 && tech.length < 30) {
-                techSet.add(tech);
-              }
-            }
-          });
-        });
-      }
-    });
-    
-    return Array.from(techSet).slice(0, 5); // Limit to 5 technologies
-  };
-
-  if (selectedProject) {
-    const projectImage = getProjectImage(selectedProject.id);
-    const projectTechs = extractTechnologies(selectedProject);
-    
-    return (
-      <section
-        className={`projects-section ${theme === 'dark' ? 'theme-dark' : 'theme-light'} ${isHomepage ? 'projects-section-home' : ''}`}
-        id="projects"
-      >
-        <div className="projects-container">
-          <motion.button
-            onClick={handleBackToList}
-            className="projects-back-button"
-            whileHover={{ x: -5 }}
-            whileTap={{ scale: 0.95 }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3 }}
-          >
-            {translations.backButton[language]}
-          </motion.button>
-
-          <motion.article 
-            className="project-detail-card"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <header className="project-detail-header">
-              <div className="project-detail-meta">
-                <span className="project-category">{selectedProject.category[language]}</span>
-                <span className="project-date">{selectedProject.date}</span>
-              </div>
-              
-              <h1 className="project-title">
-                {selectedProject.title[language]}
-              </h1>
-              
-              <div className="project-detail-image-container">
-                <img
-                  src={projectImage}
-                  alt={selectedProject.title[language] || 'Project detailed view'}
-                  className="project-detail-image"
-                  loading="eager"
-                  onLoad={() => handleImageLoad(selectedProject.id)}
-                />
-              </div>
-            </header>
-            
-            {/* Project Description */}
-            <div className="project-detail-description">
-              <p>{selectedProject.description[language]}</p>
-            </div>
-            
-            {/* Technologies */}
-            {projectTechs.length > 0 && (
-              <div className="project-technologies">
-                <h3 className="technologies-title">
-                  {translations.technologies[language]}
-                </h3>
-                <div className="technologies-tags">
-                  {projectTechs.map((tech, index) => (
-                    <span 
-                      key={index}
-                      className="technology-tag"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            )}
-            
-            {/* Action Buttons */}
-            <div className="project-detail-actions">
-              <button
-                className="project-back-action"
-                onClick={handleBackToList}
-              >
-                Back to Projects
-              </button>
-              {(selectedProject.github || selectedProject.demo) && (
-                <div className="project-links">
-                  {selectedProject.github && (
-                    <a
-                      href={selectedProject.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="project-link"
-                    >
-                      View Code
-                    </a>
-                  )}
-                  {selectedProject.demo && (
-                    <a
-                      href={selectedProject.demo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="project-link demo-link"
-                    >
-                      Live Demo
-                    </a>
-                  )}
-                </div>
-              )}
-            </div>
-          </motion.article>
-        </div>
-      </section>
-    );
-  }
-
   return (
-    <section
-      className={`projects-section ${theme === 'dark' ? 'theme-dark' : 'theme-light'} ${isHomepage ? 'projects-section-home' : ''}`}
-      id="projects"
-    >
+    <section className={`projects-section theme-${theme}`}>
+      {/* Grid Background */}
+      <div className="grid-background" />
+      <div className="grid-glow" />
+
+      {/* Code Decorations */}
+      <div className="projects-code-decoration projects-code-top-left">
+        <span className="projects-code-line">{'import React from "react"'}</span>
+        <span className="projects-code-line">{'import { useState } from "react"'}</span>
+        <span className="projects-code-line">{'import { motion } from "framer-motion"'}</span>
+        <span className="projects-code-line">{'import { projects } from "./data"'}</span>
+        <span className="projects-code-line">{''}</span>
+        <span className="projects-code-line">{'const ProjectsPage = () => {'}</span>
+        <span className="projects-code-line">{'  const [projects, setProjects] = useState([])'}</span>
+      </div>
+
+      <div className="projects-code-decoration projects-code-top-right">
+        <span className="projects-code-line">{'useEffect(() => {'}</span>
+        <span className="projects-code-line">{'  const fetchProjects = async () => {'}</span>
+        <span className="projects-code-line">{'    const res = await fetch("/api/projects")'}</span>
+        <span className="projects-code-line">{'    const data = await res.json()'}</span>
+        <span className="projects-code-line">{'    setProjects(data)'}</span>
+        <span className="projects-code-line">{'  }'}</span>
+        <span className="projects-code-line">{'  fetchProjects()'}</span>
+        <span className="projects-code-line">{'}, [])'}</span>
+      </div>
+
+      <div className="projects-code-decoration projects-code-left">
+        <span className="projects-code-line">{'<'}</span>
+        <span className="projects-code-line">{'  <div'}</span>
+        <span className="projects-code-line">{'    className="projects"'}</span>
+        <span className="projects-code-line">{'  >'}</span>
+        <span className="projects-code-line">{'    <header>'}</span>
+        <span className="projects-code-line">{'      <h1>'}</span>
+        <span className="projects-code-line">{'        My Projects'}</span>
+        <span className="projects-code-line">{'      </h1>'}</span>
+        <span className="projects-code-line">{'    </header>'}</span>
+        <span className="projects-code-line">{'    <main>'}</span>
+        <span className="projects-code-line">{'      <section'}</span>
+        <span className="projects-code-line">{'        className="project-grid"'}</span>
+        <span className="projects-code-line">{'      >'}</span>
+      </div>
+
+      <div className="projects-code-decoration projects-code-right">
+        <span className="projects-code-line">{'      </section>'}</span>
+        <span className="projects-code-line">{'    </main>'}</span>
+        <span className="projects-code-line">{'    <footer>'}</span>
+        <span className="projects-code-line">{'      <p>'}</span>
+        <span className="projects-code-line">{'        © 2026 RASLEN11'}</span>
+        <span className="projects-code-line">{'      </p>'}</span>
+        <span className="projects-code-line">{'    </footer>'}</span>
+        <span className="projects-code-line">{'  </div>'}</span>
+        <span className="projects-code-line">{'</>'}</span>
+      </div>
+
+      <div className="projects-code-decoration projects-code-bottom-left">
+        <span className="projects-code-line">{'.projects {'}</span>
+        <span className="projects-code-line">{'  display: grid;'}</span>
+        <span className="projects-code-line">{'  grid-template-columns: repeat(3, 1fr);'}</span>
+        <span className="projects-code-line">{'  gap: 2rem;'}</span>
+        <span className="projects-code-line">{'  padding: 2rem;'}</span>
+        <span className="projects-code-line">{'  background: #000;'}</span>
+        <span className="projects-code-line">{'  color: #fff;'}</span>
+        <span className="projects-code-line">{'}'}</span>
+      </div>
+
+      <div className="projects-code-decoration projects-code-bottom-right">
+        <span className="projects-code-line">{'.project-card {'}</span>
+        <span className="projects-code-line">{'  border-radius: 16px;'}</span>
+        <span className="projects-code-line">{'  overflow: hidden;'}</span>
+        <span className="projects-code-line">{'  transition: all 0.3s;'}</span>
+        <span className="projects-code-line">{'}'}</span>
+        <span className="projects-code-line">{''}</span>
+        <span className="projects-code-line">{'export default ProjectsPage'}</span>
+      </div>
+
       <div className="projects-container">
         {!isHomepage && (
           <motion.h2
             className="projects-title"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.6,
-              type: "spring",
-              stiffness: 100,
-              damping: 10
-            }}
+            transition={{ duration: 0.6, type: "spring", stiffness: 100 }}
           >
-            {translations.title[language]}{' '}
+            {translations.title[language]}
             <span className="projects-title-highlight">
               {translations.highlight[language]}
             </span>
@@ -263,21 +162,18 @@ const ProjectsPage = ({ isHomepage = false }) => {
         <div className={`projects-grid ${isHomepage ? 'projects-grid-home' : 'projects-grid-full'}`}>
           {displayedProjects.map((project, index) => {
             const projectImage = getProjectImage(project.id);
-            
+
             return (
               <motion.div
                 key={project.id}
                 initial={{ opacity: 0, y: 20 }}
-                whileInView={{
-                  opacity: 1,
-                  y: 0
-                }}
+                whileInView={{ opacity: 1, y: 0 }}
                 transition={{
                   duration: 0.4,
-                  delay: index * 0.1,
-                  ease: "easeOut"
+                  delay: index * 0.08,
+                  ease: [0.4, 0, 0.2, 1]
                 }}
-                viewport={{ once: true, margin: "0px 0px -50px 0px" }}
+                viewport={{ once: true }}
                 className="project-card-wrapper"
               >
                 <div
@@ -301,11 +197,10 @@ const ProjectsPage = ({ isHomepage = false }) => {
                       onLoadStart={() => handleImageLoadStart(project.id)}
                       onError={(e) => {
                         e.target.src = '/images/project-placeholder.jpg';
-                        e.target.alt = 'Image not available';
                       }}
                     />
                     {imageLoading[project.id] && (
-                      <div className="project-card-image-loading"></div>
+                      <div className="project-card-image-loading" />
                     )}
                   </div>
                   <div className="project-card-content">
@@ -324,30 +219,20 @@ const ProjectsPage = ({ isHomepage = false }) => {
 
         {isHomepage && projects.length > 3 && (
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{
-              opacity: 1,
-              y: 0,
-              transition: {
-                duration: 0.6,
-                delay: 0.4
-              }
-            }}
-            viewport={{ once: true }}
             className="projects-view-all"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
           >
-            <motion.div
-              whileHover={{ scale: 1.05 }}
+            <motion.button
+              className="projects-view-all-button"
+              onClick={() => navigate('/projects')}
+              whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.95 }}
             >
-              <button
-                className="projects-view-all-button"
-                onClick={() => navigate('/projects')}
-                aria-label={translations.viewAll[language]}
-              >
-                {translations.viewAll[language]}
-              </button>
-            </motion.div>
+              {translations.viewAll[language]}
+            </motion.button>
           </motion.div>
         )}
       </div>

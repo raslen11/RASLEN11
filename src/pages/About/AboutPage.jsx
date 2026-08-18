@@ -13,7 +13,8 @@ import {
   FaRocket,
   FaHeart,
   FaTrophy,
-  FaBolt
+  FaBolt,
+  FaLaptopCode
 } from 'react-icons/fa';
 import './AboutPage.css';
 
@@ -66,20 +67,20 @@ const AboutPage = () => {
       fr: 'Expertise Technique'
     },
     frontend: {
-      en: 'Frontend',
-      fr: 'Frontend'
+      en: 'Frontend Development',
+      fr: 'Développement Frontend'
     },
     backend: {
-      en: 'Backend',
-      fr: 'Backend'
+      en: 'Backend Development',
+      fr: 'Développement Backend'
     },
     database: {
       en: 'Database & DevOps',
       fr: 'Base de Données & DevOps'
     },
     architecture: {
-      en: 'Architecture',
-      fr: 'Architecture'
+      en: 'System Architecture',
+      fr: 'Architecture Système'
     },
     principles: {
       en: 'Core Principles',
@@ -195,16 +196,88 @@ const AboutPage = () => {
 
   return (
     <section className={`about-section theme-${theme}`}>
-      {/* Code Decorations */}
+      {/* Grid Background */}
+      <div className="grid-background" />
+      <div className="grid-glow" />
+
+      {/* Code Decorations - Multiple Positions */}
+      
+      {/* Top Left - Import Statements */}
+      <div className="about-code-decoration about-code-top-left">
+        <span className="about-code-line">{'import React from "react"'}</span>
+        <span className="about-code-line">{'import { motion } from "framer-motion"'}</span>
+        <span className="about-code-line">{'import { useTheme } from "./theme"'}</span>
+        <span className="about-code-line">{'import "./AboutPage.css"'}</span>
+        <span className="about-code-line">{''}</span>
+        <span className="about-code-line">{'const AboutPage = () => {'}</span>
+        <span className="about-code-line">{'  const [data, setData] = useState()'}</span>
+      </div>
+
+      {/* Top Right - useEffect */}
+      <div className="about-code-decoration about-code-top-right">
+        <span className="about-code-line">{'useEffect(() => {'}</span>
+        <span className="about-code-line">{'  const fetchData = async () => {'}</span>
+        <span className="about-code-line">{'    const res = await fetch'}</span>
+        <span className="about-code-line">{'    ("/api/about")'}</span>
+        <span className="about-code-line">{'    const data = await res.json()'}</span>
+        <span className="about-code-line">{'    setData(data)'}</span>
+        <span className="about-code-line">{'  }'}</span>
+        <span className="about-code-line">{'  fetchData()'}</span>
+        <span className="about-code-line">{'}, [])'}</span>
+      </div>
+
+      {/* Left Side - HTML Structure */}
       <div className="about-code-decoration about-code-left">
         <span className="about-code-line">{'<'}</span>
-        <span className="about-code-line">{'  <section'}</span>
-        <span className="about-code-line">{'    id="about"'}</span>
+        <span className="about-code-line">{'  <div'}</span>
+        <span className="about-code-line">{'    className="about"'}</span>
         <span className="about-code-line">{'  >'}</span>
+        <span className="about-code-line">{'    <header>'}</span>
+        <span className="about-code-line">{'      <h1>'}</span>
+        <span className="about-code-line">{'        About Me'}</span>
+        <span className="about-code-line">{'      </h1>'}</span>
+        <span className="about-code-line">{'    </header>'}</span>
+        <span className="about-code-line">{'    <main>'}</span>
+        <span className="about-code-line">{'      <section'}</span>
+        <span className="about-code-line">{'        id="about"'}</span>
+        <span className="about-code-line">{'      >'}</span>
       </div>
+
+      {/* Right Side - Closing Tags */}
       <div className="about-code-decoration about-code-right">
-        <span className="about-code-line">{'  </section>'}</span>
+        <span className="about-code-line">{'      </section>'}</span>
+        <span className="about-code-line">{'    </main>'}</span>
+        <span className="about-code-line">{'    <footer>'}</span>
+        <span className="about-code-line">{'      <p>'}</span>
+        <span className="about-code-line">{'        © 2026 RASLEN11'}</span>
+        <span className="about-code-line">{'      </p>'}</span>
+        <span className="about-code-line">{'    </footer>'}</span>
+        <span className="about-code-line">{'  </div>'}</span>
         <span className="about-code-line">{'</>'}</span>
+      </div>
+
+      {/* Bottom Left - CSS Styles */}
+      <div className="about-code-decoration about-code-bottom-left">
+        <span className="about-code-line">{'.about {'}</span>
+        <span className="about-code-line">{'  display: flex;'}</span>
+        <span className="about-code-line">{'  flex-direction: column;'}</span>
+        <span className="about-code-line">{'  align-items: center;'}</span>
+        <span className="about-code-line">{'  min-height: 100vh;'}</span>
+        <span className="about-code-line">{'  padding: 2rem;'}</span>
+        <span className="about-code-line">{'  background: #000;'}</span>
+        <span className="about-code-line">{'  color: #fff;'}</span>
+        <span className="about-code-line">{'}'}</span>
+      </div>
+
+      {/* Bottom Right - Export */}
+      <div className="about-code-decoration about-code-bottom-right">
+        <span className="about-code-line">{'.section {'}</span>
+        <span className="about-code-line">{'  animation: fadeIn 0.8s ease;'}</span>
+        <span className="about-code-line">{'  transform: translateY(0);'}</span>
+        <span className="about-code-line">{'  transition: all 0.3s;'}</span>
+        <span className="about-code-line">{'}'}</span>
+        <span className="about-code-line">{''}</span>
+        <span className="about-code-line">{'export default AboutPage'}</span>
       </div>
 
       <div className="about-container">
@@ -214,7 +287,7 @@ const AboutPage = () => {
           variants={containerVariants}
           className="about-content"
         >
-          {/* Header */}
+          {/* Header with Badge */}
           <div className="about-header">
             <motion.div variants={itemVariants} className="about-badge">
               <span className="about-badge-icon">✦</span>
@@ -234,13 +307,13 @@ const AboutPage = () => {
             </motion.p>
           </div>
 
-          {/* Intro Section */}
+          {/* Intro Section - Glass Card */}
           <motion.div variants={itemVariants} className="about-intro">
             <p className="about-description">{translations.intro[language]}</p>
             <p className="about-description">{translations.goal[language]}</p>
           </motion.div>
 
-          {/* Stats */}
+          {/* Stats - Improved Cards */}
           <motion.div variants={itemVariants} className="about-stats">
             <div className="about-stat">
               <span className="about-stat-number">5+</span>
@@ -260,10 +333,10 @@ const AboutPage = () => {
             </div>
           </motion.div>
 
-          {/* Technical Expertise */}
+          {/* Technical Expertise - Improved Cards */}
           <motion.div variants={itemVariants} className="about-expertise-section">
             <h2 className="about-section-title">
-              <FaCode className="about-section-title-icon" />
+              <FaLaptopCode className="about-section-title-icon" />
               {translations.expertise[language]}
             </h2>
             
@@ -318,7 +391,7 @@ const AboutPage = () => {
             </div>
           </motion.div>
 
-          {/* Core Principles */}
+          {/* Core Principles - Improved Cards */}
           <motion.div variants={itemVariants} className="about-principles-section">
             <h2 className="about-section-title">
               <FaAward className="about-section-title-icon" />
@@ -344,7 +417,7 @@ const AboutPage = () => {
             </div>
           </motion.div>
 
-          {/* Beyond the Code */}
+          {/* Beyond the Code - Improved Cards */}
           <motion.div variants={itemVariants} className="about-beyond-section">
             <h2 className="about-section-title">
               <FaHeart className="about-section-title-icon" />

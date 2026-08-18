@@ -8,11 +8,65 @@
   display: flex;
   align-items: center;
   position: relative;
-  background: var(--bg-color);
+  background: transparent;
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif;
   overflow: hidden;
   margin: 0;
   border-radius: 0;
+}
+
+/* ========== GRID BACKGROUND ========== */
+
+.contact-section .grid-background {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  background-image: 
+    linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: 0 0;
+  background-repeat: repeat;
+}
+
+.theme-dark .contact-section .grid-background {
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+}
+
+/* Grid dots */
+.contact-section .grid-background::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(circle, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: 0 0;
+  background-repeat: repeat;
+}
+
+.theme-dark .contact-section .grid-background::after {
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+/* Grid glow effect */
+.contact-section .grid-glow {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 0%,
+    var(--bg-color) 70%
+  );
+  opacity: 0.9;
 }
 
 /* ========== CODE DECORATIONS ========== */
@@ -21,33 +75,109 @@
   position: absolute;
   z-index: 1;
   font-family: 'Fira Code', 'Courier New', monospace;
-  font-size: clamp(0.5rem, 0.9vw, 0.8rem);
+  font-size: clamp(0.6rem, 0.85vw, 0.8rem);
   color: var(--text-tertiary);
-  opacity: 0.25;
+  opacity: 0.35;
   pointer-events: none;
-  line-height: 2;
+  line-height: 1.8;
+  transition: all 0.08s ease-out;
+  max-width: 250px;
 }
 
-.contact-code-left {
-  left: 1.5rem;
-  top: 3rem;
+/* Top Left */
+.contact-code-top-left {
+  left: 2rem;
+  top: 2rem;
   text-align: left;
 }
 
+/* Top Right */
+.contact-code-top-right {
+  right: 2rem;
+  top: 2rem;
+  text-align: right;
+}
+
+/* Left Side */
+.contact-code-left {
+  left: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: left;
+}
+
+/* Right Side */
 .contact-code-right {
-  right: 1.5rem;
-  bottom: 3rem;
+  right: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: right;
+}
+
+/* Bottom Left */
+.contact-code-bottom-left {
+  left: 2rem;
+  bottom: 2rem;
+  text-align: left;
+}
+
+/* Bottom Right */
+.contact-code-bottom-right {
+  right: 2rem;
+  bottom: 2rem;
   text-align: right;
 }
 
 .contact-code-line {
   display: block;
-  opacity: 0.5;
+  opacity: 0.6;
+  white-space: nowrap;
+  color: var(--text-tertiary);
 }
 
-.contact-code-line:nth-child(2) { opacity: 0.4; }
-.contact-code-line:nth-child(3) { opacity: 0.3; }
-.contact-code-line:nth-child(4) { opacity: 0.2; }
+/* Brighter opacity gradient for better visibility */
+.contact-code-line:nth-child(1) { opacity: 0.8; }
+.contact-code-line:nth-child(2) { opacity: 0.7; }
+.contact-code-line:nth-child(3) { opacity: 0.6; }
+.contact-code-line:nth-child(4) { opacity: 0.55; }
+.contact-code-line:nth-child(5) { opacity: 0.5; }
+.contact-code-line:nth-child(6) { opacity: 0.45; }
+.contact-code-line:nth-child(7) { opacity: 0.4; }
+.contact-code-line:nth-child(8) { opacity: 0.35; }
+.contact-code-line:nth-child(9) { opacity: 0.3; }
+.contact-code-line:nth-child(10) { opacity: 0.25; }
+
+/* Dark theme - brighter code */
+.theme-dark .contact-code-line {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.theme-dark .contact-code-line:nth-child(1) { opacity: 0.9; }
+.theme-dark .contact-code-line:nth-child(2) { opacity: 0.8; }
+.theme-dark .contact-code-line:nth-child(3) { opacity: 0.7; }
+.theme-dark .contact-code-line:nth-child(4) { opacity: 0.6; }
+.theme-dark .contact-code-line:nth-child(5) { opacity: 0.5; }
+.theme-dark .contact-code-line:nth-child(6) { opacity: 0.45; }
+.theme-dark .contact-code-line:nth-child(7) { opacity: 0.4; }
+.theme-dark .contact-code-line:nth-child(8) { opacity: 0.35; }
+.theme-dark .contact-code-line:nth-child(9) { opacity: 0.3; }
+.theme-dark .contact-code-line:nth-child(10) { opacity: 0.25; }
+
+/* Light theme - darker code for contrast */
+.theme-light .contact-code-line {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.theme-light .contact-code-line:nth-child(1) { opacity: 0.7; }
+.theme-light .contact-code-line:nth-child(2) { opacity: 0.6; }
+.theme-light .contact-code-line:nth-child(3) { opacity: 0.5; }
+.theme-light .contact-code-line:nth-child(4) { opacity: 0.45; }
+.theme-light .contact-code-line:nth-child(5) { opacity: 0.4; }
+.theme-light .contact-code-line:nth-child(6) { opacity: 0.35; }
+.theme-light .contact-code-line:nth-child(7) { opacity: 0.3; }
+.theme-light .contact-code-line:nth-child(8) { opacity: 0.25; }
+.theme-light .contact-code-line:nth-child(9) { opacity: 0.2; }
+.theme-light .contact-code-line:nth-child(10) { opacity: 0.15; }
 
 /* ========== CONTAINER ========== */
 
@@ -134,14 +264,46 @@
   font-size: 1.25rem;
 }
 
-/* ========== CONTACT METHODS ========== */
+/* ========== CONTACT METHODS - IMPROVED ========== */
 
 .contact-methods-section {
-  padding: 1.5rem;
+  padding: 1.75rem;
   background: var(--glass-bg);
   backdrop-filter: var(--glass-blur);
   border: 1px solid var(--glass-border);
   border-radius: 20px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-methods-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.06) 0%,
+    transparent 100%
+  );
+  pointer-events: none;
+  border-radius: 20px 20px 0 0;
+}
+
+.theme-dark .contact-methods-section::before {
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.02) 0%,
+    transparent 100%
+  );
+}
+
+.contact-methods-section:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--glass-shadow);
 }
 
 .contact-methods-grid {
@@ -156,34 +318,63 @@
   gap: 1rem;
   padding: 1rem 1.25rem;
   background: var(--hover-bg);
-  border-radius: 12px;
+  border-radius: 14px;
   text-decoration: none;
   color: var(--text-color);
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border: 1px solid transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-method-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.04) 0%,
+    transparent 100%
+  );
+  pointer-events: none;
+  border-radius: 14px 14px 0 0;
+}
+
+.theme-dark .contact-method-card::before {
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.01) 0%,
+    transparent 100%
+  );
 }
 
 .contact-method-card:hover {
   border-color: var(--border-color);
   background: var(--glass-bg);
+  transform: translateX(4px);
+  box-shadow: var(--glass-shadow);
 }
 
 .contact-method-icon {
   font-size: 1.25rem;
   color: var(--accent-color);
   flex-shrink: 0;
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: var(--hover-bg);
-  border-radius: 10px;
+  border-radius: 12px;
   transition: all 0.3s ease;
 }
 
 .contact-method-card:hover .contact-method-icon {
-  transform: scale(1.05);
+  transform: scale(1.1) rotate(-5deg);
+  background: var(--glass-bg);
 }
 
 .contact-method-info {
@@ -206,14 +397,46 @@
   word-break: break-all;
 }
 
-/* ========== CONTACT FORM ========== */
+/* ========== CONTACT FORM - IMPROVED ========== */
 
 .contact-form-section {
-  padding: 1.5rem;
+  padding: 1.75rem;
   background: var(--glass-bg);
   backdrop-filter: var(--glass-blur);
   border: 1px solid var(--glass-border);
   border-radius: 20px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-form-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.06) 0%,
+    transparent 100%
+  );
+  pointer-events: none;
+  border-radius: 20px 20px 0 0;
+}
+
+.theme-dark .contact-form-section::before {
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.02) 0%,
+    transparent 100%
+  );
+}
+
+.contact-form-section:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--glass-shadow);
 }
 
 .contact-form {
@@ -290,7 +513,7 @@
   min-height: 100px;
 }
 
-/* ========== SUBMIT BUTTON ========== */
+/* ========== SUBMIT BUTTON - IMPROVED ========== */
 
 .submit-button {
   display: inline-flex;
@@ -298,30 +521,60 @@
   justify-content: center;
   gap: 0.75rem;
   padding: 0.875rem 2rem;
-  border-radius: 12px;
+  border-radius: 14px;
   font-weight: 600;
   font-size: 0.9375rem;
   font-family: inherit;
   border: none;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   background: var(--accent-color);
   color: var(--text-inverse);
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
   width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.submit-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.12) 0%,
+    transparent 100%
+  );
+  pointer-events: none;
+  border-radius: 14px 14px 0 0;
 }
 
 .theme-dark .submit-button {
   box-shadow: 0 4px 24px rgba(255, 255, 255, 0.08);
 }
 
+.theme-dark .submit-button::before {
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.04) 0%,
+    transparent 100%
+  );
+}
+
 .submit-button:hover:not(:disabled) {
-  transform: translateY(-3px);
+  transform: translateY(-3px) scale(1.02);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
 .theme-dark .submit-button:hover:not(:disabled) {
   box-shadow: 0 8px 32px rgba(255, 255, 255, 0.15);
+}
+
+.submit-button:active:not(:disabled) {
+  transform: scale(0.95);
 }
 
 .submit-button:disabled {
@@ -382,7 +635,22 @@
   }
 
   .contact-code-decoration {
-    opacity: 0.35;
+    opacity: 0.4;
+  }
+  
+  .contact-method-icon {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+/* Tablet */
+@media (max-width: 1023px) {
+  .contact-code-top-left,
+  .contact-code-top-right,
+  .contact-code-bottom-left,
+  .contact-code-bottom-right {
+    display: none;
   }
 }
 
@@ -407,6 +675,11 @@
   .submit-button {
     padding: 0.75rem 1.5rem;
   }
+  
+  .contact-methods-section,
+  .contact-form-section {
+    padding: 1.25rem;
+  }
 }
 
 /* Small Mobile */
@@ -417,7 +690,7 @@
 
   .contact-methods-section,
   .contact-form-section {
-    padding: 1.25rem;
+    padding: 1rem;
   }
 
   .contact-method-card {
@@ -425,8 +698,8 @@
   }
 
   .contact-method-icon {
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
     font-size: 1rem;
   }
 }
@@ -438,6 +711,11 @@
   }
 
   .submit-button:hover:not(:disabled) {
+    transform: none !important;
+  }
+  
+  .contact-methods-section:hover,
+  .contact-form-section:hover {
     transform: none !important;
   }
 }
@@ -461,6 +739,8 @@
     background: white !important;
   }
 
+  .grid-background,
+  .grid-glow,
   .contact-code-decoration {
     display: none !important;
   }

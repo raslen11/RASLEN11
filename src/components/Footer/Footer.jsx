@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { FaGithub, FaLinkedin, FaInstagram, FaTiktok, FaFacebook, FaDiscord, FaEnvelope } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import { useLanguage } from '../../styles/LanguageContext';
+import logo from '../../components/Header/Logo_R.png';
 import './Footer.css';
 
 const Footer = () => {
@@ -63,10 +64,14 @@ const Footer = () => {
     { 
       name: 'Email', 
       icon: <FaEnvelope />, 
-      url: 'mailto:raslen@example.com',
+      url: 'mailto:rkalboussi15@gmail.com',
       ariaLabel: 'Send email'
     },
   ];
+
+  // Split social links into two rows
+  const socialLinksRow1 = socialLinks.slice(0, 4);
+  const socialLinksRow2 = socialLinks.slice(4);
 
   // Animation variants matching header style
   const containerVariants = {
@@ -103,6 +108,20 @@ const Footer = () => {
       variants={containerVariants}
       className="footer"
     >
+      {/* Grid Background */}
+      <div className="footer-grid-bg" />
+
+      {/* Code Decorations */}
+      <div className="footer-code-decoration footer-code-left">
+        <span className="footer-code-line">{'<footer>'}</span>
+        <span className="footer-code-line">{'  <div className="container">'}</span>
+        <span className="footer-code-line">{'    <p>© 2026 RASLEN11</p>'}</span>
+      </div>
+      <div className="footer-code-decoration footer-code-right">
+        <span className="footer-code-line">{'  </div>'}</span>
+        <span className="footer-code-line">{'</footer>'}</span>
+      </div>
+
       <div className="footer-container">
         <div className="footer-grid">
           {/* Brand Section */}
@@ -116,6 +135,11 @@ const Footer = () => {
               transition={{ type: "spring", stiffness: 400, damping: 17 }}
             >
               <h3 className="footer-title">
+                <img 
+                  src={logo} 
+                  alt="R Logo" 
+                  className="footer-logo-icon"
+                />
                 <span className="logo-text">RASLEN11</span>
               </h3>
               <p className="footer-description">
@@ -126,38 +150,74 @@ const Footer = () => {
               </p>
             </motion.div>
             
-            <motion.div 
-              className="footer-social"
-              variants={itemVariants}
-            >
-              {socialLinks.map((social, index) => (
-                <motion.a
-                  key={social.name}
-                  href={social.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="footer-social-link"
-                  aria-label={social.ariaLabel}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ 
-                    delay: index * 0.05,
-                    type: "spring",
-                    stiffness: 400,
-                    damping: 15
-                  }}
-                  whileHover={{ 
-                    scale: 1.1,
-                    rotate: 5,
-                    y: -3
-                  }}
-                  whileTap={{ scale: 0.9 }}
-                >
-                  {social.icon}
-                </motion.a>
-              ))}
-            </motion.div>
+            {/* Social Links - Two Rows */}
+            <div className="footer-social-wrapper">
+              <motion.div 
+                className="footer-social footer-social-row-1"
+                variants={itemVariants}
+              >
+                {socialLinksRow1.map((social, index) => (
+                  <motion.a
+                    key={social.name}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="footer-social-link"
+                    aria-label={social.ariaLabel}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ 
+                      delay: index * 0.04,
+                      type: "spring",
+                      stiffness: 400,
+                      damping: 15
+                    }}
+                    whileHover={{ 
+                      scale: 1.1,
+                      rotate: 5,
+                      y: -3
+                    }}
+                    whileTap={{ scale: 0.9 }}
+                  >
+                    {social.icon}
+                  </motion.a>
+                ))}
+              </motion.div>
+
+              <motion.div 
+                className="footer-social footer-social-row-2"
+                variants={itemVariants}
+              >
+                {socialLinksRow2.map((social, index) => (
+                  <motion.a
+                    key={social.name}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="footer-social-link"
+                    aria-label={social.ariaLabel}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ 
+                      delay: index * 0.04 + 0.2,
+                      type: "spring",
+                      stiffness: 400,
+                      damping: 15
+                    }}
+                    whileHover={{ 
+                      scale: 1.1,
+                      rotate: 5,
+                      y: -3
+                    }}
+                    whileTap={{ scale: 0.9 }}
+                  >
+                    {social.icon}
+                  </motion.a>
+                ))}
+              </motion.div>
+            </div>
           </motion.div>
 
           {/* Navigation Links */}
@@ -176,7 +236,7 @@ const Footer = () => {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ 
-                    delay: index * 0.05,
+                    delay: index * 0.04,
                     duration: 0.3,
                     ease: [0.4, 0, 0.2, 1]
                   }}

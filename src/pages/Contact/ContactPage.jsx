@@ -208,16 +208,89 @@ const ContactPage = () => {
 
   return (
     <section className={`contact-section theme-${theme}`}>
-      {/* Code Decorations */}
+      {/* Grid Background */}
+      <div className="grid-background" />
+      <div className="grid-glow" />
+
+      {/* Code Decorations - Multiple Positions */}
+      
+      {/* Top Left - Import Statements */}
+      <div className="contact-code-decoration contact-code-top-left">
+        <span className="contact-code-line">{'import React from "react"'}</span>
+        <span className="contact-code-line">{'import { useState } from "react"'}</span>
+        <span className="contact-code-line">{'import { motion } from "framer-motion"'}</span>
+        <span className="contact-code-line">{'import emailjs from "@emailjs/browser"'}</span>
+        <span className="contact-code-line">{''}</span>
+        <span className="contact-code-line">{'const ContactPage = () => {'}</span>
+        <span className="contact-code-line">{'  const [isSubmitting, setIsSubmitting]'}</span>
+      </div>
+
+      {/* Top Right - Send Email Function */}
+      <div className="contact-code-decoration contact-code-top-right">
+        <span className="contact-code-line">{'const sendEmail = (e) => {'}</span>
+        <span className="contact-code-line">{'  e.preventDefault()'}</span>
+        <span className="contact-code-line">{'  setIsSubmitting(true)'}</span>
+        <span className="contact-code-line">{'  emailjs.sendForm('}</span>
+        <span className="contact-code-line">{'    SERVICE_ID,'}</span>
+        <span className="contact-code-line">{'    TEMPLATE_ID,'}</span>
+        <span className="contact-code-line">{'    form.current,'}</span>
+        <span className="contact-code-line">{'    PUBLIC_KEY'}</span>
+        <span className="contact-code-line">{'  )'}</span>
+      </div>
+
+      {/* Left Side - HTML Structure */}
       <div className="contact-code-decoration contact-code-left">
         <span className="contact-code-line">{'<'}</span>
-        <span className="contact-code-line">{'  <section'}</span>
-        <span className="contact-code-line">{'    id="contact"'}</span>
+        <span className="contact-code-line">{'  <div'}</span>
+        <span className="contact-code-line">{'    className="contact"'}</span>
         <span className="contact-code-line">{'  >'}</span>
+        <span className="contact-code-line">{'    <header>'}</span>
+        <span className="contact-code-line">{'      <h1>'}</span>
+        <span className="contact-code-line">{'        Contact'}</span>
+        <span className="contact-code-line">{'      </h1>'}</span>
+        <span className="contact-code-line">{'    </header>'}</span>
+        <span className="contact-code-line">{'    <main>'}</span>
+        <span className="contact-code-line">{'      <section'}</span>
+        <span className="contact-code-line">{'        id="contact"'}</span>
+        <span className="contact-code-line">{'      >'}</span>
       </div>
+
+      {/* Right Side - Closing Tags */}
       <div className="contact-code-decoration contact-code-right">
-        <span className="contact-code-line">{'  </section>'}</span>
+        <span className="contact-code-line">{'      </section>'}</span>
+        <span className="contact-code-line">{'    </main>'}</span>
+        <span className="contact-code-line">{'    <footer>'}</span>
+        <span className="contact-code-line">{'      <p>'}</span>
+        <span className="contact-code-line">{'        © 2026 RASLEN11'}</span>
+        <span className="contact-code-line">{'      </p>'}</span>
+        <span className="contact-code-line">{'    </footer>'}</span>
+        <span className="contact-code-line">{'  </div>'}</span>
         <span className="contact-code-line">{'</>'}</span>
+      </div>
+
+      {/* Bottom Left - CSS Styles */}
+      <div className="contact-code-decoration contact-code-bottom-left">
+        <span className="contact-code-line">{'.contact {'}</span>
+        <span className="contact-code-line">{'  display: flex;'}</span>
+        <span className="contact-code-line">{'  flex-direction: column;'}</span>
+        <span className="contact-code-line">{'  align-items: center;'}</span>
+        <span className="contact-code-line">{'  min-height: 100vh;'}</span>
+        <span className="contact-code-line">{'  padding: 2rem;'}</span>
+        <span className="contact-code-line">{'  background: #000;'}</span>
+        <span className="contact-code-line">{'  color: #fff;'}</span>
+        <span className="contact-code-line">{'}'}</span>
+      </div>
+
+      {/* Bottom Right - Export */}
+      <div className="contact-code-decoration contact-code-bottom-right">
+        <span className="contact-code-line">{'.form {'}</span>
+        <span className="contact-code-line">{'  display: flex;'}</span>
+        <span className="contact-code-line">{'  flex-direction: column;'}</span>
+        <span className="contact-code-line">{'  gap: 1rem;'}</span>
+        <span className="contact-code-line">{'  width: 100%;'}</span>
+        <span className="contact-code-line">{'}'}</span>
+        <span className="contact-code-line">{''}</span>
+        <span className="contact-code-line">{'export default ContactPage'}</span>
       </div>
 
       <div className="contact-container">
@@ -261,7 +334,7 @@ const ContactPage = () => {
                     rel={method.link.startsWith('http') ? 'noopener noreferrer' : undefined}
                     className="contact-method-card"
                     aria-label={method.ariaLabel || method.title}
-                    whileHover={{ scale: 1.02, y: -4 }}
+                    whileHover={{ scale: 1.02, x: 4 }}
                     whileTap={{ scale: 0.98 }}
                     transition={{ type: "spring", stiffness: 400, damping: 17 }}
                   >

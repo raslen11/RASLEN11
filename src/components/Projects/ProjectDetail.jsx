@@ -16,14 +16,14 @@ import './ProjectDetail.css';
 // Import all project images
 const importAllImages = (r) => {
   let images = {};
-  r.keys().forEach((item, index) => { 
+  r.keys().forEach((item) => { 
     images[item.replace('./', '')] = r(item); 
   });
   return images;
 };
 
 // Import all images from assets directory
-const imagesContext = require.context('../../assets', true, /\.(png|jpe?g|gif|svg)$/);
+const imagesContext = require.context('../../assets', true, /\.(png|jpe?g|gif|svg|jpeg)$/);
 const allImages = importAllImages(imagesContext);
 
 const ProjectDetail = () => {
@@ -33,47 +33,39 @@ const ProjectDetail = () => {
   const navigate = useNavigate();
   const project = projects.find(p => p.id === parseInt(id, 10));
   
-  // State for image gallery
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [images, setImages] = useState([]);
   const [loadingImages, setLoadingImages] = useState(true);
 
-  // Function to extract image filename from path
   const extractImageName = useCallback((path) => {
     if (!path) return null;
-    // Extract filename from path like "/src/assets/React/FoodDonation/home.png"
     const parts = path.split('/');
     return parts[parts.length - 1];
   }, []);
 
-  // Function to find image in imported assets
   const findImage = useCallback((imagePath) => {
     if (!imagePath) return null;
     
     const imageName = extractImageName(imagePath);
     if (!imageName) return null;
     
-    // Try to find the image in imported assets
     for (const key in allImages) {
       if (key.includes(imageName)) {
         return allImages[key];
       }
     }
     
-    // If not found, check if it's a direct path to public folder
     if (imagePath.startsWith('/images/')) {
-      return imagePath; // Return as is for public folder images
+      return imagePath;
     }
     
     return null;
   }, [extractImageName]);
 
-  // Initialize images from project data
   useEffect(() => {
     if (project) {
       const allProjectImages = [];
       
-      // Add main project image
       if (project.image) {
         const mainImageSrc = findImage(project.image);
         if (mainImageSrc) {
@@ -86,7 +78,6 @@ const ProjectDetail = () => {
         }
       }
       
-      // Add screenshots if available
       if (project.screenshots) {
         Object.entries(project.screenshots).forEach(([key, screenshotPath]) => {
           const screenshotSrc = findImage(screenshotPath);
@@ -102,7 +93,6 @@ const ProjectDetail = () => {
         });
       }
       
-      // If no images found, create a placeholder
       if (allProjectImages.length === 0) {
         allProjectImages.push({
           src: '/images/project-placeholder.jpg',
@@ -117,7 +107,6 @@ const ProjectDetail = () => {
     }
   }, [project, language, findImage]);
 
-  // Navigation functions for image gallery
   const nextImage = useCallback(() => {
     setCurrentImageIndex((prevIndex) => 
       prevIndex === images.length - 1 ? 0 : prevIndex + 1
@@ -134,38 +123,39 @@ const ProjectDetail = () => {
     setCurrentImageIndex(index);
   }, []);
 
-  // Keyboard navigation for gallery
   useEffect(() => {
     if (images.length <= 1) return;
 
     const handleKeyDown = (e) => {
-      if (e.key === 'ArrowRight' || e.key === ' ') {
+      if (e.key === 'ArrowRight') {
         nextImage();
       } else if (e.key === 'ArrowLeft') {
         prevImage();
-      } else if (e.key >= '1' && e.key <= '9') {
-        const num = parseInt(e.key) - 1;
-        if (num < images.length) {
-          goToImage(num);
-        }
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [images.length, nextImage, prevImage, goToImage]);
+  }, [images.length, nextImage, prevImage]);
 
   if (!project) {
     return (
-      <div className={`project-detail-container ${theme === 'dark' ? 'theme-dark' : 'theme-light'}`}>
-        <div className="project-not-found">
-          {language === 'fr' ? 'Projet non trouvé' : 'Project not found'}
+      <div className={`project-detail-container theme-${theme}`}>
+        <div className="grid-background" />
+        <div className="grid-glow" />
+        <div className="project-detail-wrapper">
+          <div className="pd-not-found">
+            <h2>{language === 'fr' ? 'Projet non trouvé' : 'Project not found'}</h2>
+            <p>{language === 'fr' ? 'Le projet que vous recherchez n\'existe pas.' : 'The project you are looking for does not exist.'}</p>
+            <button className="pd-back-button" onClick={() => navigate('/projects')}>
+              <FaArrowLeft /> {language === 'fr' ? 'Retour aux projets' : 'Back to Projects'}
+            </button>
+          </div>
         </div>
       </div>
     );
   }
 
-  // Translations
   const translations = {
     backButton: {
       en: "Back to Projects",
@@ -182,10 +172,6 @@ const ProjectDetail = () => {
     screenshots: {
       en: "Screenshots",
       fr: "Captures d'écran"
-    },
-    viewAllScreenshots: {
-      en: "View all screenshots",
-      fr: "Voir toutes les captures"
     },
     techStack: {
       en: "Technologies Used",
@@ -221,7 +207,6 @@ const ProjectDetail = () => {
       return content.map((item, i) => <p key={`${index}-${i}`}>{item}</p>);
     }
     if (typeof content === 'object' && content !== null) {
-      // Handle content images
       let contentImageSrc = null;
       if (content.image) {
         contentImageSrc = findImage(content.image);
@@ -229,7 +214,7 @@ const ProjectDetail = () => {
       
       return (
         <motion.div 
-          className="project-content-block"
+          className="pd-content-block"
           key={index}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -245,18 +230,17 @@ const ProjectDetail = () => {
             </pre>
           )}
           {contentImageSrc && (
-            <div className="project-content-image">
+            <div className="pd-content-image">
               <img 
                 src={contentImageSrc} 
                 alt={content.caption?.[language] || project.title[language]}
                 loading="lazy"
                 onError={(e) => {
                   e.target.src = '/images/project-placeholder.jpg';
-                  e.target.alt = 'Image not available';
                 }}
               />
               {content.caption && (
-                <p className="image-caption">{content.caption[language]}</p>
+                <p className="pd-image-caption">{content.caption[language]}</p>
               )}
             </div>
           )}
@@ -266,17 +250,12 @@ const ProjectDetail = () => {
     return null;
   };
 
-  // Extract technology tags from content
   const getTechTags = () => {
     const techTags = [];
     
-    // Check content for technologies
     project.content?.forEach(contentBlock => {
-      if (contentBlock.heading?.[language]?.includes('Technologies') || 
-          contentBlock.heading?.[language]?.includes('technologies') ||
-          contentBlock.heading?.[language]?.includes('Technologies Utilisées')) {
+      if (contentBlock.heading?.[language]?.toLowerCase().includes('technologies')) {
         contentBlock.paragraphs?.[language]?.forEach(para => {
-          // Extract technology names
           const techItems = para.split('\n').map(item => {
             const match = item.match(/^[-•]\s*(.+)/);
             return match ? match[1].trim() : null;
@@ -285,7 +264,6 @@ const ProjectDetail = () => {
           if (techItems.length > 0) {
             techTags.push(...techItems);
           } else {
-            // Try another pattern
             const simpleTechs = para.split(/[:,]/).map(item => item.trim())
               .filter(item => item && !item.includes('http') && item.length < 50);
             techTags.push(...simpleTechs);
@@ -294,7 +272,6 @@ const ProjectDetail = () => {
       }
     });
     
-    // Add any technologies from tools_and_technologies if they exist
     if (project.tools_and_technologies) {
       Object.values(project.tools_and_technologies).forEach(category => {
         Object.values(category).forEach(tech => {
@@ -305,22 +282,97 @@ const ProjectDetail = () => {
       });
     }
     
-    return [...new Set(techTags.filter(Boolean))]; // Remove duplicates and null values
+    return [...new Set(techTags.filter(Boolean))];
   };
 
   const techTags = getTechTags();
 
   return (
-    <div className={`project-detail-container ${theme === 'dark' ? 'theme-dark' : 'theme-light'}`}>
+    <div className={`project-detail-container theme-${theme}`}>
+      {/* Grid Background */}
+      <div className="grid-background" />
+      <div className="grid-glow" />
+
+      {/* Code Decorations */}
+      <div className="pd-code-decoration pd-code-top-left">
+        <span className="pd-code-line">{'import { useState } from "react"'}</span>
+        <span className="pd-code-line">{'import { useParams } from "react-router-dom"'}</span>
+        <span className="pd-code-line">{'import { motion } from "framer-motion"'}</span>
+        <span className="pd-code-line">{'import { projects } from "./data"'}</span>
+        <span className="pd-code-line">{''}</span>
+        <span className="pd-code-line">{'const ProjectDetail = () => {'}</span>
+        <span className="pd-code-line">{'  const { id } = useParams()'}</span>
+      </div>
+
+      <div className="pd-code-decoration pd-code-top-right">
+        <span className="pd-code-line">{'useEffect(() => {'}</span>
+        <span className="pd-code-line">{'  const fetchProject = async () => {'}</span>
+        <span className="pd-code-line">{'    const res = await fetch(`/api/projects/${id}`)'}</span>
+        <span className="pd-code-line">{'    const data = await res.json()'}</span>
+        <span className="pd-code-line">{'    setProject(data)'}</span>
+        <span className="pd-code-line">{'  }'}</span>
+        <span className="pd-code-line">{'  fetchProject()'}</span>
+        <span className="pd-code-line">{'}, [id])'}</span>
+      </div>
+
+      <div className="pd-code-decoration pd-code-left">
+        <span className="pd-code-line">{'<'}</span>
+        <span className="pd-code-line">{'  <div'}</span>
+        <span className="pd-code-line">{'    className="project-detail"'}</span>
+        <span className="pd-code-line">{'  >'}</span>
+        <span className="pd-code-line">{'    <header>'}</span>
+        <span className="pd-code-line">{'      <h1>'}</span>
+        <span className="pd-code-line">{'        Project Detail'}</span>
+        <span className="pd-code-line">{'      </h1>'}</span>
+        <span className="pd-code-line">{'    </header>'}</span>
+        <span className="pd-code-line">{'    <main>'}</span>
+        <span className="pd-code-line">{'      <section'}</span>
+        <span className="pd-code-line">{'        className="project-content"'}</span>
+        <span className="pd-code-line">{'      >'}</span>
+      </div>
+
+      <div className="pd-code-decoration pd-code-right">
+        <span className="pd-code-line">{'      </section>'}</span>
+        <span className="pd-code-line">{'    </main>'}</span>
+        <span className="pd-code-line">{'    <footer>'}</span>
+        <span className="pd-code-line">{'      <p>'}</span>
+        <span className="pd-code-line">{'        \u00A9 2026 RASLEN11'}</span>
+        <span className="pd-code-line">{'      </p>'}</span>
+        <span className="pd-code-line">{'    </footer>'}</span>
+        <span className="pd-code-line">{'  </div>'}</span>
+        <span className="pd-code-line">{'</>'}</span>
+      </div>
+
+      <div className="pd-code-decoration pd-code-bottom-left">
+        <span className="pd-code-line">{'.project-detail {'}</span>
+        <span className="pd-code-line">{'  max-width: 900px;'}</span>
+        <span className="pd-code-line">{'  margin: 0 auto;'}</span>
+        <span className="pd-code-line">{'  padding: 2rem;'}</span>
+        <span className="pd-code-line">{'  background: #000;'}</span>
+        <span className="pd-code-line">{'  color: #fff;'}</span>
+        <span className="pd-code-line">{'  border-radius: 20px;'}</span>
+        <span className="pd-code-line">{'}'}</span>
+      </div>
+
+      <div className="pd-code-decoration pd-code-bottom-right">
+        <span className="pd-code-line">{'.project-content {'}</span>
+        <span className="pd-code-line">{'  animation: fadeIn 0.5s ease;'}</span>
+        <span className="pd-code-line">{'  transform: translateY(0);'}</span>
+        <span className="pd-code-line">{'  transition: all 0.3s;'}</span>
+        <span className="pd-code-line">{'}'}</span>
+        <span className="pd-code-line">{''}</span>
+        <span className="pd-code-line">{'export default ProjectDetail'}</span>
+      </div>
+
       <div className="project-detail-wrapper">
         {/* Back Button */}
         <motion.button 
-          className="project-back-button" 
+          className="pd-back-button" 
           onClick={() => navigate('/projects')}
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.4 }}
-          whileHover={{ x: -5 }}
+          whileHover={{ x: -4 }}
           whileTap={{ scale: 0.95 }}
         >
           <FaArrowLeft />
@@ -328,14 +380,14 @@ const ProjectDetail = () => {
         </motion.button>
 
         <motion.article 
-          className="project-detail-article"
+          className="pd-article"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <header className="project-detail-header">
+          <header className="pd-header">
             <motion.span 
-              className="project-detail-category"
+              className="pd-category"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.4, delay: 0.2 }}
@@ -344,7 +396,7 @@ const ProjectDetail = () => {
             </motion.span>
             
             <motion.h1 
-              className="project-detail-title"
+              className="pd-title"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
@@ -353,32 +405,30 @@ const ProjectDetail = () => {
             </motion.h1>
             
             <motion.div 
-              className="project-detail-meta"
+              className="pd-meta"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.4, delay: 0.4 }}
             >
-              <span className="project-detail-date">{project.date}</span>
+              <span>{project.date}</span>
               {project.status && (
-                <span className="project-detail-status">
-                  • {project.status[language]}
-                </span>
+                <span>• {project.status[language]}</span>
               )}
             </motion.div>
 
             {/* Technology Tags */}
             {techTags.length > 0 && (
               <motion.div 
-                className="project-tech-stack"
+                className="pd-tech-stack"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.5 }}
               >
-                <span style={{marginRight: '0.5rem', color: 'var(--pd-text-secondary)'}}>
+                <span className="pd-tech-stack-label">
                   {translations.techStack[language]}:
                 </span>
-                {techTags.map((tech, index) => (
-                  <span key={index} className="tech-tag">
+                {techTags.slice(0, 8).map((tech, index) => (
+                  <span key={index} className="pd-tech-tag">
                     {tech}
                   </span>
                 ))}
@@ -388,7 +438,7 @@ const ProjectDetail = () => {
             {/* Image Gallery */}
             {loadingImages ? (
               <motion.div 
-                className="gallery-loading"
+                className="pd-gallery-loading"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5 }}
@@ -397,12 +447,12 @@ const ProjectDetail = () => {
               </motion.div>
             ) : images.length > 0 && (
               <motion.div 
-                className="project-image-gallery"
+                className="pd-gallery"
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: 0.6 }}
               >
-                <div className="gallery-header">
+                <div className="pd-gallery-header">
                   <h3>
                     {images.length === 1 
                       ? project.title[language] 
@@ -410,18 +460,17 @@ const ProjectDetail = () => {
                     }
                   </h3>
                   {images.length > 1 && (
-                    <div className="gallery-indicator">
+                    <span className="pd-gallery-indicator">
                       {translations.image[language]} {currentImageIndex + 1} {translations.of[language]} {images.length}
-                    </div>
+                    </span>
                   )}
                 </div>
 
-                {/* Main Image Display */}
-                <div className="gallery-main">
+                <div className="pd-gallery-main">
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={currentImageIndex}
-                      className="gallery-image-container"
+                      className="pd-gallery-image-container"
                       initial={{ opacity: 0, x: 100 }}
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: -100 }}
@@ -430,35 +479,31 @@ const ProjectDetail = () => {
                       <img 
                         src={images[currentImageIndex].src} 
                         alt={images[currentImageIndex].alt} 
-                        className="gallery-image"
+                        className="pd-gallery-image"
                         loading="lazy"
                         onError={(e) => {
                           e.target.src = '/images/project-placeholder.jpg';
-                          e.target.alt = 'Image not available';
                         }}
                       />
-                      
-                      {/* Image Label */}
                       {images[currentImageIndex].label && (
-                        <div className="image-label">
+                        <div className="pd-gallery-image-label">
                           {images[currentImageIndex].label}
                         </div>
                       )}
                     </motion.div>
                   </AnimatePresence>
 
-                  {/* Navigation Arrows */}
                   {images.length > 1 && (
                     <>
                       <button 
-                        className="gallery-nav-button prev-button"
+                        className="pd-gallery-nav prev"
                         onClick={prevImage}
                         aria-label={translations.prev[language]}
                       >
                         <FaChevronLeft />
                       </button>
                       <button 
-                        className="gallery-nav-button next-button"
+                        className="pd-gallery-nav next"
                         onClick={nextImage}
                         aria-label={translations.next[language]}
                       >
@@ -468,13 +513,12 @@ const ProjectDetail = () => {
                   )}
                 </div>
 
-                {/* Thumbnail Navigation */}
                 {images.length > 1 && (
-                  <div className="gallery-thumbnails">
+                  <div className="pd-gallery-thumbnails">
                     {images.map((img, index) => (
                       <button
                         key={index}
-                        className={`thumbnail ${index === currentImageIndex ? 'active' : ''}`}
+                        className={`pd-thumbnail ${index === currentImageIndex ? 'active' : ''}`}
                         onClick={() => goToImage(index)}
                         aria-label={`${translations.image[language]} ${index + 1}`}
                       >
@@ -483,7 +527,6 @@ const ProjectDetail = () => {
                           alt={`${img.alt} - ${index + 1}`}
                           onError={(e) => {
                             e.target.src = '/images/project-placeholder.jpg';
-                            e.target.alt = 'Thumbnail not available';
                           }}
                         />
                       </button>
@@ -495,7 +538,7 @@ const ProjectDetail = () => {
 
             {/* Project Description */}
             <motion.p 
-              className="project-description"
+              className="pd-description"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.7 }}
@@ -505,22 +548,22 @@ const ProjectDetail = () => {
           </header>
 
           {/* Main Content */}
-          <div className="project-detail-content">
+          <div className="pd-content">
             {project.content?.map((block, index) => renderContent(block, index))}
           </div>
 
           {/* Project Links */}
-          <div className="project-links">
+          <div className="pd-links">
             {project.github && (
               <motion.a
                 href={project.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="project-link github"
+                className="pd-link github"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.8 }}
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.95 }}
               >
                 <FaGithub />
@@ -532,11 +575,11 @@ const ProjectDetail = () => {
                 href={project.demo}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="project-link demo"
+                className="pd-link demo"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.9 }}
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.95 }}
               >
                 <FaExternalLinkAlt />
