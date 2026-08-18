@@ -294,6 +294,12 @@
   font-weight: 500;
 }
 
+.bd-date {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 /* ========== FEATURED IMAGE ========== */
 
 .bd-image-container {

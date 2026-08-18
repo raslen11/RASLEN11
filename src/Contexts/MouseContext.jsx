@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from './ThemeContext';
 
-const MouseGlow = () => {
+const MouseContext = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
@@ -84,4 +84,4 @@ const MouseGlow = () => {
   );
 };
 
-export default MouseGlow;
+export default MouseContext;

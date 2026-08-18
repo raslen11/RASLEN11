@@ -1,4 +1,4 @@
-// src/AppRoutes.js
+// src/AppContext.js
 import { Routes, Route } from 'react-router-dom';
 import HomePage from '../pages/Home/HomePage';
 import AboutPage from '../pages/About/AboutPage';
@@ -12,7 +12,7 @@ import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
 import MouseGlow from './MouseContext';
 
-const AppRoutes = () => {
+const AppContext = () => {
   return (
     <div className="app d-flex flex-column min-vh-100">
       <MouseGlow />
@@ -34,4 +34,4 @@ const AppRoutes = () => {
   );
 };
 
-export default AppRoutes;
+export default AppContext;
