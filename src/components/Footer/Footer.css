@@ -261,11 +261,20 @@
 
 /* ========== RESPONSIVE BREAKPOINTS ========== */
 
-/* Tablet (768px - 991px) - Stack Layout */
-@media (max-width: 991px) {
+/* Desktop (1024px+) - Normal footer */
+@media (min-width: 1024px) {
+  .footer {
+    margin: 20px 30px;
+    border-radius: 40px;
+  }
+}
+
+/* Tablet (768px - 1023px) */
+@media (max-width: 1023px) and (min-width: 768px) {
   .footer {
     margin: 15px 20px;
     border-radius: 35px;
+    margin-bottom: 100px; /* Space for bottom nav */
   }
   
   .footer::before {
@@ -320,11 +329,12 @@
   }
 }
 
-/* Mobile Landscape and Small Tablet (600px - 767px) */
+/* Mobile (320px - 767px) - Footer above bottom nav */
 @media (max-width: 767px) {
   .footer {
     margin: 12px 15px;
     border-radius: 30px;
+    margin-bottom: 85px; /* Space for bottom navigation */
   }
   
   .footer::before {
@@ -372,11 +382,12 @@
   }
 }
 
-/* Mobile Portrait (320px - 599px) */
-@media (max-width: 599px) {
+/* Small Mobile (320px - 480px) */
+@media (max-width: 480px) {
   .footer {
     margin: 10px 12px;
     border-radius: 25px;
+    margin-bottom: 80px; /* Space for bottom nav */
   }
   
   .footer::before {
@@ -392,7 +403,6 @@
     gap: 1.75rem;
   }
   
-  /* Stack navigation links vertically on small mobile */
   .footer-links-list {
     grid-template-columns: 1fr;
     gap: 0.25rem;
@@ -441,6 +451,7 @@
   .footer {
     margin: 6px 8px;
     border-radius: 20px;
+    margin-bottom: 70px;
   }
   
   .footer::before {
@@ -496,7 +507,6 @@
     align-items: center;
   }
   
-  /* Remove hover effects on touch devices */
   .footer-link:hover {
     transform: none;
     background: none;
@@ -511,6 +521,7 @@
 @media (max-height: 500px) and (orientation: landscape) {
   .footer {
     margin: 5px 15px;
+    margin-bottom: 75px;
   }
   
   .footer-container {
@@ -579,17 +590,19 @@
   }
 }
 
-@media (max-width: 991px) {
+@media (max-width: 1023px) {
   .footer {
     margin-left: max(20px, env(safe-area-inset-left, 20px));
     margin-right: max(20px, env(safe-area-inset-right, 20px));
+    margin-bottom: max(85px, env(safe-area-inset-bottom, 85px));
   }
 }
 
-@media (max-width: 599px) {
+@media (max-width: 480px) {
   .footer {
     margin-left: max(12px, env(safe-area-inset-left, 12px));
     margin-right: max(12px, env(safe-area-inset-right, 12px));
+    margin-bottom: max(80px, env(safe-area-inset-bottom, 80px));
   }
 }
 
@@ -597,5 +610,6 @@
   .footer {
     margin-left: max(8px, env(safe-area-inset-left, 8px));
     margin-right: max(8px, env(safe-area-inset-right, 8px));
+    margin-bottom: max(70px, env(safe-area-inset-bottom, 70px));
   }
 }
